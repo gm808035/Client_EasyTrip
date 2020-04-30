@@ -45,7 +45,5 @@
 </script>
 
 <style scoped>
-    .navbar {
-       margin-bottom: 50px;
-    }
+
 </style>

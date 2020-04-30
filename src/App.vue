@@ -19,7 +19,7 @@
       Header,
       Footer,
       Banner,
-      Search
+      Search,
     }
   }
 </script>
@@ -30,7 +30,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
   }
   .boxed-btn4 {
     background: #FF4A52;
@@ -62,5 +61,32 @@
   /* line 71, ../../Arafath/CL/December/231. Travel-02/HTML/scss/_btn.scss */
   .boxed-btn4:focus {
     outline: none;
+  }
+
+  .boxed-btn3 {
+    background: #1EC6B6 ;
+    color: #fff;
+    display: inline-block;
+    padding: 18px 41px;
+    font-family: $font1;
+    font-size: 16px;
+      font-weight: 500;
+      border: 0;
+      @include border-radius(5px);
+      text-align: center;
+      text-transform: capitalize;
+      @include transition(.3s);
+      cursor: pointer;
+      &:hover{
+          background: #FF4A52 ;
+          color: #fff !important;
+          text-decoration: none;
+      }
+      &:focus{
+          outline: none;
+      }
+      &.large-width{
+          width: 220px;
+      }
   }
 </style>

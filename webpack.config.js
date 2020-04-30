@@ -30,6 +30,7 @@ module.exports = {
               prependData: `
                 @import "./src/assets/scss/_responsive.scss";
                 @import "./src/assets/scss/_mixins.scss";
+                @import "./src/assets/scss/_varriable.scss";
               `
             }
           }
