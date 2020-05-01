@@ -73,16 +73,16 @@
                 }
             }
         }
-        &:hover{
+        &:hover{;
             @include box-shadow(0 10px 20px rgba(0, 0, 0, .05));
             .place_info{
                 h3{
                     color: #FF4A52;
-
                 }
             }
             .thumb{
                 .prise{
+                    text-decoration: none;
                     background: #FF4A52;
                 }
             }
@@ -165,7 +165,7 @@
             margin-top: 14px;
             margin-bottom: 27px;
             input{
-                background-color: transparent; 
+                background-color: transparent;
             }
         }
         .ui-widget.ui-widget-content {
