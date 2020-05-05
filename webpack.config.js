@@ -58,6 +58,7 @@ module.exports = {
           esModule: false
         },
       },
+
     ]
   },
   resolve: {
