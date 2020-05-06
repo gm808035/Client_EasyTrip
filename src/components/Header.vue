@@ -19,6 +19,7 @@
                 </li>
             </ul>
 
+
           <ul class="navbar-nav" v-if="loggedIn">
             <li class="nav-item dropdown ml-auto">
               <a
@@ -36,7 +37,6 @@
                 <a class="dropdown-item" href="#">Уведомления о поездках</a>
                 <a class="dropdown-item" href="#"> Настройки</a>
                 <div class="dropdown-divider"></div>
-                <router-link :to="{name: 'login'}" class="nav-link">Войти</router-link>
                 <router-link :to="{name: 'logout'}" class="nav-link">Выйти</router-link>
               </div>
             </li>
@@ -48,11 +48,23 @@
                 <router-link :to="{name: 'login'}" class="nav-link">Войти</router-link>
                 <router-link :to="{name: 'register'}" class="nav-link">Регистрация</router-link>
               </form>
+<!--              <ul class="navbar-nav authentication">&ndash;&gt;-->
+<!--                        <li class="nav-item" v-if="!loggedIn">-->
+<!--                          <router-link :to="{name: 'login'}" class="nav-link">Войти</router-link>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item" v-if="!loggedIn">-->
+<!--                          <router-link :to="{name: 'register'}" class="nav-link">Регистрация</router-link>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item" v-if="loggedIn">-->
+<!--                          <router-link :to="{name: 'logout'}" class="nav-link">Выйти</router-link>-->
+<!--                        </li>-->
+<!--                      </ul>-->
             </ul>
             </ul>
           </div>
         </div>
     </nav>
+
   </div>
 </template>
 
