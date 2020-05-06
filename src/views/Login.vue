@@ -1,12 +1,13 @@
 <template>
   <div class="container">
+
   <div class="top">
   <div class="wrapper fadeInDown">
     <div id="formContent">
+      <form action="#" @submit.prevent="login">
       <!-- Tabs Titles -->
       <h2 class="active"> Войти </h2>
       <h2 class="inactive underlineHover">Регистрация </h2>
-      <form action="#" @submit.prevent="login">
       <!-- Icon -->
 <!--      <div class="fadeIn first" style="align-items: center ">-->
 <!--        <img src="src/assets/img-01.png" id="icon" alt="User Icon" />-->
@@ -14,16 +15,10 @@
       <div class="img" style="align-items: center" >
                 <img src="src/assets/img-01.png" id="icon" alt="User Icon" />
       </div>
-
-
       <!-- Login Form -->
-
-      <form>
         <input type="email" id="email" class="fadeIn second" name="email" v-model="email">
         <input type="password" id="password" class="fadeIn third" name="password" v-model="password">
-        <input type="submit" class="fadeIn fourth" value="Log In">
-      </form>
-
+        <input type="submit" class=" fadeIn fourth " value="Log In">
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" href="#">Forgot Password?</a>
@@ -32,6 +27,7 @@
     </div>
   </div>
   </div>
+
   </div>
 
 </template>
@@ -51,7 +47,7 @@
           email: this.email,
           password: this.password,
         })
-          .then(() => {
+          .then(response => {
             this.$router.push({ name: 'home' })
           })
       }
