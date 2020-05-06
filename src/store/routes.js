@@ -1,45 +1,36 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import store from "./store";
+import App from "../App";
 import Login from "../views/Login";
-import Secure from "../views/Secure"
 import Register from "../views/Register";
-Vue.use(Router)
+import Logout from "../views/Logout";
 
-let router = new Router({
-  mode: 'history',
-  routes: [
 
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Register
-    },
-    {
-      path: '/secure',
-      name: 'secure',
-      component: Secure,
-      meta: {
-        requiresAuth: true
-      }
-    },
-
-  ]
-})
-router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
-      next()
-      return
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: App,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: {
+      requiresVisitor: true
     }
-    next('/login')
-  } else {
-    next()
-  }
-})
-export default router
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register,
+    meta: {
+      requiresVisitor: true
+    }
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: Logout
+  },
+]
+
+export default routes

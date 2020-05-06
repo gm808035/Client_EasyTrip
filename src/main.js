@@ -1,21 +1,44 @@
 import Vue from 'vue'
-import App from './App.vue'
-import Axios from 'axios'
 import VueRouter from "vue-router";
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import store from './store'
-Vue.prototype.$http = Axios;
-const token = localStorage.getItem('token')
-if (token) {
-  Vue.prototype.$http.defaults.headers.common['Authorization'] = token
-}
+import routes from "./store/routes";
+import Master from "./components/layouts/Master";
+import {store} from "./store/store";
 
+Vue.use(VueRouter)
 
-Vue.use(VueRouter);
- Axios.defaults.baseURL = 'http://localhost:3000/api/';
-new Vue({
-  el: '#app',
-  render: h => h(App)
+const router = new VueRouter({
+  routes,
+  mode: 'history'
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.loggedIn) {
+      next({
+        name: 'login',
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.requiresVisitor)) {
+    if (store.getters.loggedIn) {
+      next({
+        name: 'home',
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+new Vue({
+  el: '#app',
+  router: router,
+  store: store,
+  components: { Master },
+  template: '<Master/>'
+})

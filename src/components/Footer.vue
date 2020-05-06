@@ -1,9 +1,11 @@
 <template>
-    <footer id="" class="py-4 bg-dark text-white">
+  <div class="footer">
+    <div id="" class="py-4 bg-dark text-white">
         <div class="container text-center">
-            <small>Copyright &copy; EasyTrip.kg </small>
+            <small>GM_Company product &copy; EasyTrip.com   </small>
         </div>
-    </footer>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -14,5 +16,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.footer{
 
+
+}
 </style>
