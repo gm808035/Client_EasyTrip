@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-
+    <form action="#" @submit.prevent="login">
   <div class="top">
   <div class="wrapper fadeInDown">
     <div id="formContent">
-      <form action="#" @submit.prevent="login">
       <!-- Tabs Titles -->
       <h2 class="active"> Войти </h2>
       <h2 class="inactive underlineHover">Регистрация </h2>
+
       <!-- Icon -->
 <!--      <div class="fadeIn first" style="align-items: center ">-->
 <!--        <img src="src/assets/img-01.png" id="icon" alt="User Icon" />-->
@@ -15,19 +15,25 @@
       <div class="img" style="align-items: center" >
                 <img src="src/assets/img-01.png" id="icon" alt="User Icon" />
       </div>
+
+
       <!-- Login Form -->
+
+
         <input type="email" id="email" class="fadeIn second" name="email" v-model="email">
         <input type="password" id="password" class="fadeIn third" name="password" v-model="password">
         <input type="submit" class=" fadeIn fourth " value="Log In">
+
+
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" href="#">Forgot Password?</a>
       </div>
-      </form>
+
     </div>
   </div>
   </div>
-
+    </form>
   </div>
 
 </template>
@@ -61,7 +67,7 @@
   /* BASIC */
 
   html {
-    background-color: #56baed;
+    /*background-color: #56baed;*/
 
   }
 
@@ -246,10 +252,9 @@
     border-bottom: 2px solid #5fbae9;
   }
 
-  /*input[type=text]: placeholder {*/
-  /*  color: #cccccc;*/
-  /*}*/
-
+  input[type=text]:placeholder {
+    color: #cccccc;
+  }
 
 
   /* ANIMATIONS */

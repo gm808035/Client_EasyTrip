@@ -23,6 +23,28 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    register(context,data){
+      return new Promise((resolve, reject) => {
+        axios.post('/users',{
+          email: data.email,
+          password: data.password,
+          name: data.name,
+          surname: data.surname,
+          gender: data.gender,
+          date_of_Birth: data.date_of_Birth,
+          phone: data.phone,
+          inf_about_yourself: data.inf_about_yourself
+        })
+          .then(response => {
+           resolve(response)
+            console.log(data)
+          })
+          .catch(error => {
+            reject(error)
+            console.log(data)
+          })
+      })
+    },
     destroyToken(context) {
       axios.defaults.headers["Authorization"] = context.state.token
 
