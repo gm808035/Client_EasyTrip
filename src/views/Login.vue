@@ -6,30 +6,20 @@
     <div id="formContent">
       <!-- Tabs Titles -->
       <h2 class="active"> Войти </h2>
-      <h2 class="inactive underlineHover">Регистрация </h2>
-
+<!--      <h2 class="inactive underlineHover">Регистрация </h2>-->
       <!-- Icon -->
-<!--      <div class="fadeIn first" style="align-items: center ">-->
-<!--        <img src="src/assets/img-01.png" id="icon" alt="User Icon" />-->
-<!--      </div>-->
       <div class="img" style="align-items: center" >
                 <img src="src/assets/img-01.png" id="icon" alt="User Icon" />
       </div>
-
-
       <!-- Login Form -->
-
-
-        <input type="email" id="email" class="fadeIn second" name="email" v-model="email">
-        <input type="password" id="password" class="fadeIn third" name="password" v-model="password">
+        <input type="email" id="email" class="fadeIn second" name="email" v-model="email" placeholder="Email">
+        <input type="password" id="password" class="fadeIn third" name="password" v-model="password" placeholder="Passworf">
         <input type="submit" class=" fadeIn fourth " value="Log In">
-
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" href="#">Forgot Password?</a>
       </div>
-
     </div>
   </div>
   </div>
@@ -68,7 +58,6 @@
 
   html {
     /*background-color: #56baed;*/
-
   }
 
   body {
