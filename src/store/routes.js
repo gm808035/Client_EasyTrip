@@ -1,9 +1,9 @@
 import App from "../App";
-import Login from "../views/Login";
-import Register from "../views/Register";
-import Logout from "../views/Logout";
-import City from "../views/City";
-import AddTrip from "../views/AddTrip";
+import Login from "../views/Auth/Login";
+import Register from "../views/Auth/Register";
+import Logout from "../views/Auth/Logout";
+import City from "../views/Trip/City";
+import AddTrip from "../views/Trip/AddTrip";
 
 const routes = [
   {

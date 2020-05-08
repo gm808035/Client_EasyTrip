@@ -1,4 +1,5 @@
 <template>
+  <div class="fadeIn">
   <div class="login-form">
     <h2 class="login-heading">Добавление маршрута</h2>
     <form action="#" @submit.prevent="addTrip">
@@ -13,9 +14,15 @@
       </div>
 
       <div class="">
-        <label for="date_time">Дата</label>
-        <Datepicker input-class="login-input" id="date_time" v-model="date_time" />
+        <label for="date">Дата</label>
+        <Datepicker input-class="login-input" id="date" v-model="date" />
       </div>
+
+      <div class="">
+        <label for="time">time</label>
+        <input type="text" name="time" id="time" class="login-input" v-model="time">
+      </div>
+
 
       <div class="">
         <label for="price">Цена</label>
@@ -37,6 +44,7 @@
       </div>
     </form>
   </div>
+    </div>
 </template>
 
 <script>
@@ -47,7 +55,8 @@
         driver: '',
         point_of_shipment: '',
         destination: '',
-        date_time: '',
+        date: '',
+        time:'',
         price: '',
         amount_of_seats: '',
         free_seats: '',
@@ -57,9 +66,10 @@
       addTrip() {
         this.$store.dispatch('addTrip', {
           driver: this.$store.getters.currentUser.id,
-          point_of_shipment: 2,
-          destination: 3,
-          date_time: this.date_time,
+          point_of_shipment: 1,
+          destination: 2,
+          date: this.date,
+          time: this.time,
           price: parseInt(this.price),
           amount_of_seats: parseInt(this.amount_of_seats),
           free_seats: parseInt(this.free_seats),
@@ -81,7 +91,7 @@
 </script>
 
 <style>
-.login-form{
-  margin-top: 50px;
+.fadeIn{
+  margin-top: 100px;
 }
 </style>

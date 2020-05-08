@@ -37,7 +37,8 @@
                 data-toggle="dropdown"
                 data-target="navbarDropdown"
               >
-                <label>user</label>
+<!--                {{currentUser.name}} {{currentUser.surname}}-->
+
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 

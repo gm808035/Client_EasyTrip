@@ -61,7 +61,8 @@ export const store = new Vuex.Store({
             driver: data.driver,
             point_of_shipment: data.point_of_shipment,
             destination: data.destination,
-            date_time: data.date_time,
+            date: data.date,
+            time: data.time,
             price: data.price,
             amount_of_seats: data.amount_of_seats,
             free_seats: data.free_seats,
@@ -85,14 +86,14 @@ export const store = new Vuex.Store({
           axios.post('/auth/logout')
             .then(response => {
               localStorage.removeItem('token')
-              context.commit('destroyToken')
               localStorage.removeItem('currentUser')
+              context.commit('destroyToken')
               resolve(response)
             })
             .catch(error => {
               localStorage.removeItem('token')
-              context.commit('destroyToken')
               localStorage.removeItem('currentUser')
+              context.commit('destroyToken')
               reject(error)
             })
         })

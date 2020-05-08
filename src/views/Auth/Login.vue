@@ -9,7 +9,7 @@
 <!--      <h2 class="inactive underlineHover">Регистрация </h2>-->
       <!-- Icon -->
       <div class="img" style="align-items: center" >
-                <img src="src/assets/img-01.png" id="icon" alt="User Icon" />
+                <img src="../../assets/img-01.png" id="icon" alt="User Icon" />
       </div>
       <!-- Login Form -->
         <input type="email" id="email" class="fadeIn second" name="email" v-model="email" placeholder="Email">
