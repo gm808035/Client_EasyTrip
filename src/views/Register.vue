@@ -29,11 +29,12 @@
                      <option value="Male">Male</option>
                      <option value="Female">Female</option>
                    </select>
-
+<!--            <label for="date_time">Дата</label>-->
+<!--            <Datepicker input-class="login-input" id="date_time" v-model="date_time" />-->
 
             <input type="text" id="phone" class="fadeIn third" name="phone" v-model="phone" placeholder="phone">
-            <input type="date" id="date_of_Birth" class="fadeIn third" name="date_of_Birth" v-model="date_of_Birth" placeholder="Date of birth">
-<!--            <input type="inf" id="inf_about_yourself" class="fadeIn third" name="inf_about_yourself" v-model="inf_about_yourself" placeholder="inf_about_yourself">-->
+
+              <Datepicker input-class="fadeIn third" type="date" id="date_of_Birth" v-model="date_of_Birth" />
 
             <textarea type="inf" name="inf_about_yourself" id="inf_about_yourself" class="login-input" rows="4" v-model="inf_about_yourself" placeholder="inf_about_yourself"/>
             <input type="submit" class=" fadeIn fourth " value="Register">
@@ -53,6 +54,7 @@
 </template>
 
 <script>
+  import Datepicker from 'vuejs-datepicker';
     export default {
         name: "Register",
       data(){
@@ -84,6 +86,9 @@
             })
             // .catch(err => console.log(err.message))
         }
+      },
+      components: {
+        Datepicker
       }
     }
 </script>
@@ -218,6 +223,27 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
 }
 
 input[type=text] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+Datepicker[type=date] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -490,5 +516,8 @@ input[type=text]:placeholder {
   margin-bottom: 125px;
   margin-top: 125px;
 }
+  .row{
+
+  }
 </style>
 

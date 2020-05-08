@@ -13,14 +13,21 @@
                     <a class="nav-link" href="#">Блог</a>
                 </li>
                 <li class="nav-item">
+<!--                  <router-link :to="{name: 'addTrip'}">Предложить поездку </router-link>-->
                     <a class="nav-link" href="#">Добавить поездку</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Поиск</a>
-                </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Поиск
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <router-link :to="{name: 'cities'}" class="dropdown-item">Список городок</router-link>
+
+                </div>
+              </li>
             </ul>
 
-
+        </div>
           <ul class="navbar-nav" v-if="loggedIn">
             <li class="nav-item dropdown ml-auto">
               <a
@@ -33,7 +40,8 @@
                 <label>user</label>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Профиль</a>
+
+                  <a class="dropdown-item" href="#">Профиль </a>
                 <a class="dropdown-item" href="#">Ваши поездки</a>
                 <a class="dropdown-item" href="#">Уведомления о поездках</a>
                 <a class="dropdown-item" href="#"> Настройки</a>
@@ -63,7 +71,7 @@
             </ul>
             </ul>
           </div>
-        </div>
+
     </nav>
 
   </div>
@@ -75,6 +83,9 @@
     computed: {
       loggedIn() {
         return this.$store.getters.loggedIn
+      },
+      currentUser() {
+        return this.$store.getters.currentUser
       }
     }
   }

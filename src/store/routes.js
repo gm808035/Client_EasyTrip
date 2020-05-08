@@ -2,7 +2,8 @@ import App from "../App";
 import Login from "../views/Login";
 import Register from "../views/Register";
 import Logout from "../views/Logout";
-
+import City from "../views/City";
+import AddTrip from "../views/AddTrip";
 
 const routes = [
   {
@@ -30,6 +31,19 @@ const routes = [
     path: '/logout',
     name: 'logout',
     component: Logout
+  },
+  {
+    path: '/cities',
+    name: 'cities',
+    component: City
+  },
+  {
+    path: '/addTrip',
+    name: 'addTrip',
+    component: AddTrip,
+    meta: {
+      requiresAuth: true
+    }
   },
 ]
 
