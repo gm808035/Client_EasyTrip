@@ -21,7 +21,9 @@
                   Поиск
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <router-link :to="{name: 'cities'}" class="dropdown-item">Список городок</router-link>
+                  <router-link :to="{name: 'cities'}" class="dropdown-item">Список городов</router-link>
+                  <router-link :to="{name: 'showTrip'}" class="dropdown-item">ShowTrip</router-link>
+                  <router-link :to="{name: 'map'}" class="dropdown-item">mapShow</router-link>
 
                 </div>
               </li>
@@ -37,7 +39,7 @@
                 data-toggle="dropdown"
                 data-target="navbarDropdown"
               >
-<!--                {{currentUser.name}} {{currentUser.surname}}-->
+                {{currentUser.name}} {{currentUser.surname}}
 
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

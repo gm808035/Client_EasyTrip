@@ -14,6 +14,7 @@
   import TripList from "./components/TripList";
   import PlaceList from "./components/PlaceList";
 
+
   // import Vuex from 'vuex'
   export default {
 
@@ -31,3 +32,5 @@
 <style lang="scss">
   @import "./assets/scss/btn";
 </style>
+
+

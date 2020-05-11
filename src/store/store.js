@@ -8,7 +8,7 @@ axios.defaults.baseURL = 'http://localhost:3000'
 export const store = new Vuex.Store({
   state: {
     token: localStorage.getItem('token') || null,
-    currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
+    currentUser: JSON.parse(localStorage.getItem('currentUser')) || null
   },
   getters: {
     loggedIn(state) {
@@ -78,6 +78,29 @@ export const store = new Vuex.Store({
         })
       },
 
+    addIntermediatePoint(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post('/trips', {
+          driver: data.driver,
+          point_of_shipment: data.point_of_shipment,
+          destination: data.destination,
+          date: data.date,
+          time: data.time,
+          price: data.price,
+          amount_of_seats: data.amount_of_seats,
+          free_seats: data.free_seats,
+        })
+          .then(response => {
+            resolve(response)
+            console.log(data)
+          })
+          .catch(error => {
+            reject(error)
+            console.log(data)
+          })
+      })
+    },
+
     destroyToken(context) {
       axios.defaults.headers["Authorization"] = context.state.token
 
@@ -99,6 +122,7 @@ export const store = new Vuex.Store({
         })
       }
     },
+
     retrieveToken(context, credentials) {
       return new Promise((resolve, reject) => {
         axios.post('/auth/login', {

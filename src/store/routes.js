@@ -4,6 +4,7 @@ import Register from "../views/Auth/Register";
 import Logout from "../views/Auth/Logout";
 import City from "../views/Trip/City";
 import AddTrip from "../views/Trip/AddTrip";
+import ShowTrip from "../views/Trip/ShowTrip";
 
 const routes = [
   {
@@ -45,6 +46,23 @@ const routes = [
       requiresAuth: true
     }
   },
+  {
+    path: '/trips/:id',
+    name: 'showTrip',
+    component: ShowTrip,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component: Map,
+    meta: {
+      requiresAuth: true
+    }
+  },
+
 ]
 
 export default routes
