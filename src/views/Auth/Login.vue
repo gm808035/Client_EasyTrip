@@ -14,6 +14,7 @@
       <!-- Login Form -->
         <input type="email" id="email" class="fadeIn second" name="email" v-model="email" placeholder="Email">
         <input type="password" id="password" class="fadeIn third" name="password" v-model="password" placeholder="Passworf">
+
         <input type="submit" class=" fadeIn fourth " value="Log In">
 
       <!-- Remind Passowrd -->
@@ -34,7 +35,7 @@
     data() {
       return {
         email: '',
-        password: ''
+        password: '',
       }
     },
     methods: {

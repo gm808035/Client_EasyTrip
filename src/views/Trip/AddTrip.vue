@@ -6,41 +6,40 @@
           <form action="#" @submit.prevent="addTrip">
             <label for="point_of_shipment" style="text-align: left">Точка отправки</label>
             <div class="stil">
-              <select v-model="point_of_shipment"  class="login-input form-control mb-0" required="required"
-                      id="point_of_shipment">
+              <select  v-model="point_of_shipment" class="login-input form-control mb-0" required="required"
+                       id="point_of_shipment" @change='runGmap'>
                 <option v-for="city in cities" :value="city.id" :key="city.id">
                   {{city.city_name}}
                 </option>
               </select>
             </div>
-<!--            <div>-->
-<!--              <label for="waypoints">Промежуточные точки</label>-->
-<!--              <select type="text" v-model="waypoints" class="login-input form-control mb-0" multiple="true" id="waypoints">-->
-<!--                <option v-for="city in cities" :value="city.attribute" :key="city.id">-->
-<!--                  {{city.city_name}}-->
-<!--                </option>-->
-<!--              </select>-->
-<!--            </div>-->
 
-<!--            <div class="stil" >-->
-              <div class="previous"
-                 v-for="(waypoint, counter) in waypoints"
-                 v-bind:key="counter">
-              <span @click="deletePoint(counter)">x</span>
-              <label for="duration" style="text-align: left">Промежуточная точка №{{counter+1}}</label>
-              <select v-model="waypoint.point" class="login-input form-control mb-0" required="required" id="waypoints">
+            <div class="">
+              <label for="waypoints">Промежуточные точки</label>
+              <select  type="text" v-model="waypoints" class="login-input form-control mb-0" multiple="true" id="waypoints"  @change='runGmap'>
                 <option v-for="city in cities" :value="city.id" :key="city.id">
                   {{city.city_name}}
                 </option>
               </select>
-              </div>
-<!--           </div>-->
-            <button class="btnAddpoint" @click="addPoint" style="color: white">+</button>
+            </div>
+            <button class="" @click="removeMark" style="">remove</button>-->
+<!--              <div class="previous"-->
+<!--                 v-for="(pointTest, counter) in pointTest"-->
+<!--                 v-bind:key="counter">-->
+<!--              <span @click="deletePoint(counter)" style="color: red">x</span>-->
+<!--              <label for="duration" style="text-align: left">Промежуточная точка №{{counter+1}}</label>-->
+<!--              <select  v-model="waypoints" class="login-input form-control mb-0" required="required" id="waypoints">-->
+<!--                <option v-for="city in cities" :value="city.id" :key="city.id">-->
+<!--                  {{city.city_name}}-->
+<!--                </option>-->
+<!--              </select>-->
+<!--              </div>-->
+<!--            <button class="btnAddpoint" @click="addPoint" style="color: white">+</button>-->
+<!--            <button class="" @click="runGmap" style="">map</button>-->
 
             <label for="destination" style="text-align: left">Конечная точка</label>
             <div class="stil">
-                <select v-model="destination" class="login-input form-control mb-0" required="required" id="destination" @change='runGmap'>
-                <option value="">Выберите город</option>
+                <select v-model="destination" class="login-input form-control mb-0" required="required" id="destination" @change='runGmap' >
                 <option v-for="(city) in cities" :value="city.id" :key="city.id">
                   {{city.city_name}}
                 </option>
@@ -113,86 +112,87 @@
     data() {
       return {
         driver: '',
-        point_of_shipment: '',
-        destination: '',
+        point_of_shipment: 2,
+        destination: 3,
         date: '',
         time:'',
         price: '',
         amount_of_seats: '',
         free_seats: '',
-        waypoints: [
+        waypoints: [],
+        cities: [],
+        pointTest:[
           {
             point: '',
           }
         ],
-        cities: [],
       }
     },
     methods: {
       addTrip() {
         this.$store.dispatch('addTrip', {
           driver: this.$store.getters.currentUser,
-          point_of_shipment: this.point_of_shipment, // тут нужен  point_of_shipment.id
+          point_of_shipment: this.point_of_shipment,
           destination: this.destination,
           date: this.date,
           time: this.time,
           price: parseInt(this.price),
           amount_of_seats: parseInt(this.amount_of_seats),
           free_seats: parseInt(this.free_seats),
+          waypoints: this.waypoints
         })
           .then((response) => {
             this.$router.push({ name: 'showTrip' })
           })
       },
       addPoint(){
-        this.waypoints.push({
-          previous:'',
+        this.pointTest.push({
+          point: '',
         })
       },
       deletePoint(counter){
-        this.waypoints.splice(counter,1);
+        this.pointTest.splice(counter,1);
       },
 
 
-      AddIntermediatePoint(){
-
+      removeMark(){
+        // this.waypoints = null;
+        // this.point_of_shipment = null
+        // this.destination = null
+        this.calculateAndDisplayRoute();
       },
-
       runGmap() {
         const requestOne = axios.get(`http://localhost:3000/cities/` + this.point_of_shipment);
         const requestTwo = axios.get(`http://localhost:3000/cities/` + this.destination);
 
-        axios
-          .all([requestOne, requestTwo])
+        const requestThree = axios.post(`http://localhost:3000/cities/waypoints/byIds`, {
+          waypoints: this.waypoints
+        });
+        axios.all([requestOne, requestTwo, requestThree])
           .then(
             axios.spread((...responses) => {
-              getPointsAttr(responses[0].data.attribute, responses[1].data.attribute)
+              getPointsAttr(responses[0].data.attribute, responses[1].data.attribute, responses[2].data)
             })
           )
           .catch(errors => {
             console.error(errors);
           });
 
-        const getPointsAttr = (pointAttr, destinationAttr) => {
+        const getPointsAttr = (pointAttr, destinationAttr, waypointsAttr) => {
           let directionsService = new google.maps.DirectionsService
           let directionsRenderer = new google.maps.DirectionsRenderer
 
           directionsRenderer.setMap(this.$refs.googleMap.$mapObject);
-          this.calculateAndDisplayRoute(directionsService, directionsRenderer, pointAttr, destinationAttr);
+          this.calculateAndDisplayRoute(directionsService, directionsRenderer, pointAttr, destinationAttr, waypointsAttr);
         }
       },
-      calculateAndDisplayRoute(directionsService, directionsRenderer, pointAttr, destinationAttr) {
+      calculateAndDisplayRoute(directionsService, directionsRenderer, pointAttr, destinationAttr, waypointsAttr) {
         let waypts = [];
-        let checkboxArray = document.getElementById('waypoints');
-        console.log(this.waypoints)
-        console.log(checkboxArray)
-        for (let i = 0; i < checkboxArray.length; i++) {
-          if (checkboxArray.options[i].selected) {
-            waypts.push({
-              location: checkboxArray[i].value,
-              stopover: true
-            });
-          }
+        for (let i = 0; i < waypointsAttr.length; i++) {
+          waypts.push({
+            location: waypointsAttr[i],
+            stopover: true
+          });
         }
 
         directionsService.route({
@@ -210,14 +210,14 @@
             // For each route, display summary information.
             for (let i = 0; i < route.legs.length; i++) {
               let routeSegment = i + 1;
-              summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+              summaryPanel.innerHTML += '<b>Отрезок дороги: ' + routeSegment +
                 '</b><br>';
               summaryPanel.innerHTML += route.legs[i].start_address + ' до ';
               summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
               summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
             }
           } else {
-            window.alert('Directions request failed due to ' + status);
+            console.log('Directions request failed due to ' + status);
           }
         });
       }
@@ -256,27 +256,27 @@
   width: 100%;
   margin-left: 0;
 }
-option{
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 5px;
-  width: 85%;
-  height: 100px;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-}
+/*option{*/
+/*  background-color: #f6f6f6;*/
+/*  border: none;*/
+/*  color: #0d0d0d;*/
+/*  padding: 15px 32px;*/
+/*  text-align: center;*/
+/*  text-decoration: none;*/
+/*  display: inline-block;*/
+/*  font-size: 16px;*/
+/*  margin: 5px;*/
+/*  width: 85%;*/
+/*  height: 100px;*/
+/*  border: 2px solid #f6f6f6;*/
+/*  -webkit-transition: all 0.5s ease-in-out;*/
+/*  -moz-transition: all 0.5s ease-in-out;*/
+/*  -ms-transition: all 0.5s ease-in-out;*/
+/*  -o-transition: all 0.5s ease-in-out;*/
+/*  transition: all 0.5s ease-in-out;*/
+/*  -webkit-border-radius: 5px 5px 5px 5px;*/
+/*  border-radius: 5px 5px 5px 5px;*/
+/*}*/
 
 select{
   background-color: #f6f6f6;
@@ -387,6 +387,7 @@ select[type=text] {
   font-size: 16px;
   margin: 5px;
   width: 85%;
+  height: 100%;
   border: 2px solid #f6f6f6;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
@@ -409,7 +410,7 @@ span{
   width: 30px;
   float: right;
   cursor: pointer;
-  color: red;
+
 }
 
 

@@ -5,6 +5,7 @@ import Logout from "../views/Auth/Logout";
 import City from "../views/Trip/City";
 import AddTrip from "../views/Trip/AddTrip";
 import ShowTrip from "../views/Trip/ShowTrip";
+import SearchTrip from "../views/Trip/SearchTrip";
 
 const routes = [
   {
@@ -55,11 +56,11 @@ const routes = [
     }
   },
   {
-    path: '/map',
-    name: 'map',
-    component: Map,
+    path: '/search',
+    name: 'search',
+    component: SearchTrip,
     meta: {
-      requiresAuth: true
+      requiresAuth: false
     }
   },
 

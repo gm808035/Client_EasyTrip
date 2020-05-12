@@ -6,8 +6,11 @@ import routes from "./store/routes";
 import Master from "./components/layouts/Master";
 import {store} from "./store/store";
 import * as VueGoogleMaps from 'vue2-google-maps'
+import VueCompositionApi from '@vue/composition-api'
 
 Vue.use(VueRouter)
+
+Vue.use(VueCompositionApi)
 
 Vue.use(VueGoogleMaps, {
   load: {

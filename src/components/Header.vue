@@ -13,18 +13,17 @@
                     <a class="nav-link" href="#">Блог</a>
                 </li>
                 <li class="nav-item">
-<!--                  <router-link :to="{name: 'addTrip'}">Предложить поездку </router-link>-->
                     <a class="nav-link" href="#">Добавить поездку</a>
                 </li>
+              <li class="nav-item">
+                <router-link :to="{name: 'search'}" class="nav-link">Найти поездку</router-link>
+              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Поиск
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <router-link :to="{name: 'cities'}" class="dropdown-item">Список городов</router-link>
-                  <router-link :to="{name: 'showTrip'}" class="dropdown-item">ShowTrip</router-link>
-                  <router-link :to="{name: 'map'}" class="dropdown-item">mapShow</router-link>
-
                 </div>
               </li>
             </ul>

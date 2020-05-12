@@ -7,19 +7,10 @@
             <!-- Tabs Titles -->
 <!--            <h2 class="inactive underlineHover"> Войти </h2>-->
             <h2 class="active">Регистрация </h2>
-
-            <!-- Icon -->
-            <!--      <div class="fadeIn first" style="align-items: center ">-->
-            <!--        <img src="src/assets/img-01.png" id="icon" alt="User Icon" />-->
-            <!--      </div>-->
             <div class="img" style="align-items: center" >
               <img src="../../assets/img-01.png" id="icon" alt="User Icon" />
             </div>
-
-
             <!-- Login Form -->
-
-
             <input type="email" id="email" class="fadeIn second" name="email" v-model="email" placeholder="Email">
             <input type="password" id="password" class="fadeIn third" name="password" v-model="password" placeholder="Passworf">
             <input type="text" id="name" class="fadeIn third" name="name" v-model="name" placeholder="Name">
@@ -29,16 +20,19 @@
                      <option value="Male">Male</option>
                      <option value="Female">Female</option>
                    </select>
-<!--            <label for="date_time">Дата</label>-->
-<!--            <Datepicker input-class="login-input" id="date_time" v-model="date_time" />-->
 
             <input type="text" id="phone" class="fadeIn third" name="phone" v-model="phone" placeholder="phone">
+            <label for="date_of_Birth"></label>
+<!--            <div class="date">-->
+<!--              <Datepicker input-class="fadeIn third" type="date" id="date_of_Birth" v-model="date_of_Birth" />-->
+<!--          </div>-->
 
-              <Datepicker input-class="fadeIn third" type="date" id="date_of_Birth" v-model="date_of_Birth" />
+            <div class="">
+              <Datepicker input-class="login-input" id="date_of_Birth" v-model="date_of_Birth" />
+            </div>
 
             <textarea type="inf" name="inf_about_yourself" id="inf_about_yourself" class="login-input" rows="4" v-model="inf_about_yourself" placeholder="inf_about_yourself"/>
             <input type="submit" class=" fadeIn fourth " value="Register">
-
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
@@ -243,7 +237,7 @@ input[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-Datepicker[type=date] {
+div[class=date] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;

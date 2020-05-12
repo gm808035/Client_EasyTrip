@@ -41,7 +41,8 @@ export const store = new Vuex.Store({
           gender: data.gender,
           date_of_Birth: data.date_of_Birth,
           phone: data.phone,
-          inf_about_yourself: data.inf_about_yourself
+          inf_about_yourself: data.inf_about_yourself,
+          waypoints: data.waypoints
         })
           .then(response => {
            resolve(response)
@@ -66,6 +67,7 @@ export const store = new Vuex.Store({
             price: data.price,
             amount_of_seats: data.amount_of_seats,
             free_seats: data.free_seats,
+            waypoints: data.waypoints,
           })
             .then(response => {
               resolve(response)

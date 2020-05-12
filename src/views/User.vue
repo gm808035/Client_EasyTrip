@@ -26,19 +26,6 @@
         <td>{{user.preference}}</td>
       </tr>
 
-<!--      <tr>-->
-<!--        <td></td>-->
-<!--        <td><input class="form-control" type="text" name="username" v-model="user.username"></td>-->
-<!--        <td><input class="form-control" type="text" name="name" v-model="user.name"></td>-->
-<!--        <td><input class="form-control" type="text" name="phone" v-model="user.phone"></td>-->
-<!--        <td><input class="form-control" type="text" name="email" v-model="user.email"></td>-->
-<!--       -->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td></td>-->
-<!--        <td><button type="submit" class="btn btn-primary">Добавить</button></td>-->
-<!--      </tr>-->
 
       </tbody>
     </table>
