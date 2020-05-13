@@ -1,11 +1,10 @@
 <template>
   <div class="container">
-    <form action="#" @submit.prevent="search">
+    <form action="#"  @submit.prevent="searchTrip">
       <div class="top">
         <div class="wrapper">
             <h2 class="active">Куда Вы хотите отпрваиться? </h2>
-<!--       <input type="text" id="from" class="fadeIn second" name="from" v-model="point_of_shipment" placeholder="Откуда" required="">-->
-          <label type="text" for="point_of_shipment" style="text-align: left">from </label>
+          <label type="text" for="point_of_shipment" style="text-align: left" onautocomplete="this">from </label>
           <select type="text" v-model="point_of_shipment" class="login-input form-control mb-0" required="required"
                    id="point_of_shipment">
             <option v-for="city in cities" :value="city.id" :key="city.id">
@@ -13,8 +12,7 @@
             </option>
           </select>
 
-<!--          <input type="text" id="to" class="fadeIn third" name="to" v-model="destination" placeholder="Куда" required="">-->
-          <label type="text" for="point_of_shipment" style="text-align: left">to </label>
+          <label type="text" for="destination" style="text-align: left">to </label>
           <select type="text" v-model="destination" class="login-input form-control mb-0" required="required" id="destination">
          <option v-for="city in cities" :value="city.id" :key="city.id">
            {{city.city_name}}
@@ -30,8 +28,19 @@
                 <input type="text" id="time" class="fadeIn third" v-model="time" name="time"  placeholder="Время">
              </div>
         </div>
-            <input type="submit" class=" fadeIn fourth " value="Найти">
+          <button type="submit" class=" fadeIn fourth " value="Найти"></button>
 
+
+          <hr align="center" width="1100" size="2" color="blue" />
+          <div class="row">
+            <div v-if="results">
+              <h4>Направление: {{results.point_of_shipment}} - {{results.destination}}</h4>
+              <p>Дата: {{results.date}}</p>
+              <p>Время: {{results.time}}</p>
+              <p>Цена: {{results.price}}</p>
+              <p>Свободных мест: {{results.free_seats}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </form>
@@ -50,14 +59,29 @@
             destination: '',
             date: '',
             time:'',
+            results: [],
         }
       },
-      search(){
-          axios.post('http://localhost:3000/search')
-        .then(response => {
-
+      methods: {
+        searchTrip() {
+          axios.post('http://localhost:3000/trips/search', {
+            headers: { 'Content-Type': 'application/json' },
+            point_of_shipment: this.point_of_shipment,
+            destination: this.destination,
+            date: this.date,
+            time: this.time
           })
-      },
+            .then(response => {
+              console.log("test")
+              this.results = response.data
+            })
+            .catch(e => {
+              console.log("test1")
+              this.errors.push(e)
+
+            })
+        },
+    },
       created() {
         axios.get(`http://localhost:3000/cities`)
           .then(response => {
@@ -138,5 +162,8 @@ div[class=top]{
 }
   label[type=text]{
     text-align: left;
+  }
+  hr{
+    margin-left: 0  ;
   }
 </style>

@@ -14,7 +14,6 @@
   import TripList from "./components/TripList";
   import PlaceList from "./components/PlaceList";
 
-
   // import Vuex from 'vuex'
   export default {
 

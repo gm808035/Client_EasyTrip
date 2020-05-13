@@ -6,6 +6,7 @@ import City from "../views/Trip/City";
 import AddTrip from "../views/Trip/AddTrip";
 import ShowTrip from "../views/Trip/ShowTrip";
 import SearchTrip from "../views/Trip/SearchTrip";
+import MyListTrip from "../views/Trip/MyListTrip";
 
 const routes = [
   {
@@ -61,6 +62,22 @@ const routes = [
     component: SearchTrip,
     meta: {
       requiresAuth: false
+    }
+  },
+  {
+    path: '/showtrip',
+    name: 'ShowTrip',
+    component: ShowTrip,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/myTrips',
+    name: 'myTrips',
+    component: MyListTrip,
+    meta: {
+      requiresAuth: true
     }
   },
 

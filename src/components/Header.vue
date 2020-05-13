@@ -13,7 +13,7 @@
                     <a class="nav-link" href="#">Блог</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Добавить поездку</a>
+                  <router-link :to="{name: 'addTrip'}" class="nav-link">Добавить поездку</router-link>
                 </li>
               <li class="nav-item">
                 <router-link :to="{name: 'search'}" class="nav-link">Найти поездку</router-link>
@@ -44,11 +44,13 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
                   <a class="dropdown-item" href="#">Профиль </a>
-                <a class="dropdown-item" href="#">Ваши поездки</a>
+                <a class="dropdown-item" href="/myTrips">Ваши поездки</a>
                 <a class="dropdown-item" href="#">Уведомления о поездках</a>
                 <a class="dropdown-item" href="#"> Настройки</a>
                 <div class="dropdown-divider"></div>
+                <div class="log">
                 <router-link :to="{name: 'logout'}" class="nav-link">Выйти</router-link>
+                </div>
               </div>
             </li>
           </ul>
@@ -59,17 +61,6 @@
                 <router-link :to="{name: 'login'}" class="nav-link">Войти</router-link>
                 <router-link :to="{name: 'register'}" class="nav-link">Регистрация</router-link>
               </form>
-<!--              <ul class="navbar-nav authentication">&ndash;&gt;-->
-<!--                        <li class="nav-item" v-if="!loggedIn">-->
-<!--                          <router-link :to="{name: 'login'}" class="nav-link">Войти</router-link>-->
-<!--                        </li>-->
-<!--                        <li class="nav-item" v-if="!loggedIn">-->
-<!--                          <router-link :to="{name: 'register'}" class="nav-link">Регистрация</router-link>-->
-<!--                        </li>-->
-<!--                        <li class="nav-item" v-if="loggedIn">-->
-<!--                          <router-link :to="{name: 'logout'}" class="nav-link">Выйти</router-link>-->
-<!--                        </li>-->
-<!--                      </ul>-->
             </ul>
             </ul>
           </div>
@@ -123,7 +114,7 @@
 .authentication a:hover {
   color: #FF4A52 !important;
 }
-  .navbar.navbar-dark.bg-dark{
-    background: white;
-  }
+div[class=log]{
+  margin-left: 20px;
+}
 </style>

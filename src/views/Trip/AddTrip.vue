@@ -112,8 +112,8 @@
     data() {
       return {
         driver: '',
-        point_of_shipment: 2,
-        destination: 3,
+        point_of_shipment: '',
+        destination: '',
         date: '',
         time:'',
         price: '',
@@ -142,7 +142,7 @@
           waypoints: this.waypoints
         })
           .then((response) => {
-            this.$router.push({ name: 'showTrip' })
+            this.$router.push({ name: 'myTrips' })
           })
       },
       addPoint(){
@@ -154,13 +154,6 @@
         this.pointTest.splice(counter,1);
       },
 
-
-      removeMark(){
-        // this.waypoints = null;
-        // this.point_of_shipment = null
-        // this.destination = null
-        this.calculateAndDisplayRoute();
-      },
       runGmap() {
         const requestOne = axios.get(`http://localhost:3000/cities/` + this.point_of_shipment);
         const requestTwo = axios.get(`http://localhost:3000/cities/` + this.destination);
