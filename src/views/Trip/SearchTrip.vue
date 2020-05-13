@@ -20,9 +20,7 @@
           </select>
         <div class="row" style="margin-left: 11px; margin-right: 0">
             <div class="col-lg-6" style="margin-right: 0">
-              <Datepicker>
-                 <input type="text" id="date" name="to" v-model="date" placeholder="data" required=""/>
-              </Datepicker>
+              <Datepicker input-class="login-input" id="date_of_Birth" v-model="date" />
              </div>
              <div class="col-lg-6" style="margin-left: 0">
                 <input type="text" id="time" class="fadeIn third" v-model="time" name="time"  placeholder="Время">
@@ -34,11 +32,14 @@
           <hr align="center" width="1100" size="2" color="blue" />
           <div class="row">
             <div v-if="results">
-              <h4>Направление: {{results.point_of_shipment}} - {{results.destination}}</h4>
-              <p>Дата: {{results.date}}</p>
-              <p>Время: {{results.time}}</p>
-              <p>Цена: {{results.price}}</p>
-              <p>Свободных мест: {{results.free_seats}}</p>
+              <h3>Всего найдено: {{results.length}}</h3>
+              <ul v-for="result in results" :key="result.id">
+                <li style="list-style: none">
+                  <router-link :to="{name: 'showTrip', params: {id: result.id}}" class="nav-link">
+                  <h4>Направление: {{result.point_of_shipment.city_name}} - {{result.destination.city_name}}</h4></router-link>
+                </li>
+              </ul>
+
             </div>
           </div>
         </div>
@@ -72,11 +73,10 @@
             time: this.time
           })
             .then(response => {
-              console.log("test")
               this.results = response.data
+              console.log(this.results)
             })
             .catch(e => {
-              console.log("test1")
               this.errors.push(e)
 
             })

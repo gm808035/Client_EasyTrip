@@ -22,7 +22,6 @@
                 </option>
               </select>
             </div>
-            <button class="" @click="removeMark" style="">remove</button>-->
 <!--              <div class="previous"-->
 <!--                 v-for="(pointTest, counter) in pointTest"-->
 <!--                 v-bind:key="counter">-->
