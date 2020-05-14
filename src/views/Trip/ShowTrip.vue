@@ -39,10 +39,47 @@
     </div>
   </div>
   </div>
+<!--  -->
+<!--    <div class="row col-md-12">-->
+<!--      <div class="col-md-5">-->
+<!--    <div v-if="isLoaded" class="col-md-5">-->
+<!--      <h4>Направление: {{trip.point_of_shipment.name}} - {{trip.destination.name}}</h4>-->
+<!--      <p>Дата: {{trip.date_time}}</p>-->
+<!--      <p>Дата: {{trip.time}}</p>-->
+<!--      <p>Цена: {{trip.price}}</p>-->
+<!--      <p>Всего мест: {{trip.amount_of_seats}}</p>-->
+<!--      <p>Свободных мест: {{trip.free_seats}}</p>-->
+<!--    </div>-->
+<!--                <button @click="addPassenger" :disabled=isFull> Order</button>-->
+<!--    <div class="col-md-7">-->
+<!--      <div id="map">-->
+<!--        <GmapMap-->
+<!--          :center="{lat:41.5, lng:74.5}"-->
+<!--          :zoom="6.7"-->
+<!--          map-type-id="roadmap"-->
+<!--          style="width: 100%; height: 500px"-->
+<!--          class="mt-3"-->
+<!--          ref="googleMap"-->
+<!--        >-->
+<!--          <GmapMarker-->
+<!--            :key="index"-->
+<!--            v-for="(c, index) in cities"-->
+<!--            :position="c.position"-->
+<!--            :clickable="true"-->
+<!--            :draggable="true"-->
+<!--            @click="center=c.position"-->
+<!--          />-->
+<!--        </GmapMap>-->
+<!--        <div id="directions-panel"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--    </div>-->
 </template>
 
 <script>
   import axios from 'axios'
+  import * as VueGoogleMaps from 'vue2-google-maps'
   export default {
     name: "ShowTrip",
     data() {
@@ -72,32 +109,26 @@
 
 
       runGmap() {
-        const requestOne = axios.get(`http://localhost:3000/cities/` + this.point_of_shipment);
-        const requestTwo = axios.get(`http://localhost:3000/cities/` + this.destination);
-
-        const requestThree = axios.post(`http://localhost:3000/cities/waypoints/byIds`, {
-          waypoints: this.waypoints
+        const waypointsIds = axios.post(`http://localhost:3000/cities/waypoints/byIds`, {
+          waypoints: this.trip.waypoints
         });
-        axios.all([requestOne, requestTwo, requestThree])
+        axios.all([waypointsIds])
           .then(
             axios.spread((...responses) => {
-              getPointsAttr(responses[0].data.attribute, responses[1].data.attribute, responses[2].data)
+              getPointsAttr(responses[0].data)
             })
           )
           .catch(errors => {
             console.error(errors);
           });
-          this.cities.push(this.point_of_shipment)
-          this.cities.push(this.destination)
-        const getPointsAttr = (pointAttr, destinationAttr, waypointsAttr) => {
+        const getPointsAttr = (waypointsAttr) => {
           let directionsService = new google.maps.DirectionsService
           let directionsRenderer = new google.maps.DirectionsRenderer
-
           directionsRenderer.setMap(this.$refs.googleMap.$mapObject);
-          this.calculateAndDisplayRoute(directionsService, directionsRenderer, pointAttr, destinationAttr, waypointsAttr);
+          this.calculateAndDisplayRoute(directionsService, directionsRenderer, waypointsAttr);
         }
       },
-      calculateAndDisplayRoute(directionsService, directionsRenderer, pointAttr, destinationAttr, waypointsAttr) {
+      calculateAndDisplayRoute(directionsService, directionsRenderer, waypointsAttr) {
         let waypts = [];
         for (let i = 0; i < waypointsAttr.length; i++) {
           waypts.push({
@@ -105,10 +136,9 @@
             stopover: true
           });
         }
-
         directionsService.route({
-          origin: pointAttr,
-          destination: destinationAttr,
+          origin: this.trip.point_of_shipment.attribute,
+          destination: this.trip.destination.attribute,
           waypoints: waypts,
           optimizeWaypoints: true,
           travelMode: 'DRIVING'
@@ -132,6 +162,14 @@
           }
         });
       }
+    },
+    computed: {
+      google: VueGoogleMaps.gmapApi
+    },
+    mounted() {
+      window.addEventListener('load', () => {
+        this.runGmap();
+      })
 
     },
     created() {
@@ -139,6 +177,8 @@
         .then(response => {
           this.trip = response.data
           this.isLoaded = true
+          this.cities.push(this.trip.point_of_shipment.attribute)
+          this.cities.push(this.trip.destination.attribute)
         })
         .catch(e => {
           this.errors.push(e)
