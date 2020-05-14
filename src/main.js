@@ -8,11 +8,11 @@ import {store} from "./store/store";
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueSingleSelect from "vue-single-select";
 Vue.component('vue-single-select', VueSingleSelect);
-
+import VueFlashMessage from 'vue-flash-message';
 Vue.use(VueRouter)
 
 // Vue.use(AutoCompleteComponent)
-
+Vue.use(VueFlashMessage);
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyBMMqcN3G7mbEVfFWaifv8K1ja2HKPhf3s',

@@ -4,6 +4,7 @@
   <div class="top">
   <div class="wrapper fadeInDown">
     <div id="formContent">
+
       <!-- Tabs Titles -->
       <h2 class="active"> Войти </h2>
 <!--      <h2 class="inactive underlineHover">Регистрация </h2>-->
@@ -11,6 +12,7 @@
       <div class="img" style="align-items: center" >
                 <img src="../../assets/img-01.png" id="icon" alt="User Icon" />
       </div>
+      <flash-message class="myCustomClass"></flash-message>
       <!-- Login Form -->
         <input type="email" id="email" class="fadeIn second" name="email" v-model="email" placeholder="Email">
         <input type="password" id="password" class="fadeIn third" name="password" v-model="password" placeholder="Passworf">
@@ -47,6 +49,11 @@
           .then(response => {
             this.$router.push({ name: 'home' })
           })
+          .catch(error => {
+            if(error.response.status == 401) {
+              this.flashError('Неправильный логин/пароль');
+            }
+          })
       }
     }
   }
@@ -54,7 +61,7 @@
 
 <style lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Poppins');
-
+  @import "../../assets/css/vue-flash-message.css";
   /* BASIC */
 
   html {
