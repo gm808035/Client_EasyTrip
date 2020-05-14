@@ -66,7 +66,7 @@ export const store = new Vuex.Store({
             time: data.time,
             price: data.price,
             amount_of_seats: data.amount_of_seats,
-            free_seats: data.free_seats,
+            // free_seats: data.free_seats,
             waypoints: data.waypoints,
           })
             .then(response => {
@@ -79,6 +79,22 @@ export const store = new Vuex.Store({
             })
         })
       },
+    addPassenger(context, data) {
+      return new Promise((resolve, reject) =>{
+        axios.post('/trips/order',{
+          trip_id: data.trip_id,
+          passenger: data.passenger
+        })
+          .then(response => {
+            resolve(response)
+            console.log(data)
+          })
+          .catch(error => {
+            reject(error)
+            console.log(data)
+          })
+      })
+    },
 
     addIntermediatePoint(context, data) {
       return new Promise((resolve, reject) => {

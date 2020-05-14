@@ -1,22 +1,24 @@
 <template>
   <div class="row">
+
   <ul>
+    <h3 style="margin-left: 50px">Ваши поездки</h3>
     <li v-for="(trip) in myTrips" :key="trip.id">
       <router-link :to="{name: 'showTrip', params: {id: trip.id}}" class="nav-link">
 <!--        <b>{{index + 1}}: </b>-->
 
            <div class="container">
              <div class="col-4-6">
-                <h5 style="margin-top: 0">Основной маршрут</h5>
-               <header style="margin-left: 6px">  <b>{{trip.point_of_shipment.city_name}} - {{trip.destination.city_name}}</b></header>
+                <h5 style="margin-top: 20px">Основной маршрут</h5>
+               <header style="margin-left: 6px">  <b>{{trip.point_of_shipment.city_name}} -> {{trip.destination.city_name}}</b></header>
              </div>
           <div class="col-1-5">
-              <h5 style="margin-top: 0">Дата</h5>
+              <h5 style="margin-top: 20px">Дата</h5>
               <td></td>
               <b>{{trip.date}} - {{trip.time}}</b>
           </div>
              <div class="col-1-6">
-               <h5 style="margin-top: 0">Стоимость</h5>
+               <h5 style="margin-top: 20px">Стоимость</h5>
                <td></td>
                <b>{{trip.price}} KGS </b>
              </div>
@@ -60,16 +62,15 @@
     margin-top: 100px;
   }
   .container{
-    /*outline: 3px solid #4cd3e3; !* Чёрная рамка *!*/
-    border: 3px solid #fff; /* Белая рамка */
-    border-radius: 10px; /* Радиус скругления */
+    /*border: 3px solid #fff; !* Белая рамка *!*/
+    /*border-radius: 10px; !* Радиус скругления *!*/
     display: grid;
     grid-template-columns: 500px 500px 200px;
     grid-template-rows: 100px 30px;
 
     -webkit-border-radius: 5px 5px 5px 5px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.1);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.1);
+    box-shadow: 0 10px 10px 0 rgba(0,0,0,0.1);
     margin-bottom: 50px;
   }
   h5 {

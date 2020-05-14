@@ -6,8 +6,8 @@
                     <div class="row align-items-center">
                         <div class="col-xl-12 col-md-12">
                             <div class="slider_text text-center">
-                                <h3>Kyrgyzstan</h3>
-                                <p>People don't take trips, trips take people.</p>
+                                <h3 style="margin-bottom: 50px">Kyrgyzstan</h3>
+                                <p >People don't take trips, trips take people.</p>
                               <router-link :to="{name: 'addTrip'}" class="boxed-btn3">Предложить поездку </router-link>
                             </div>
                         </div>
@@ -40,5 +40,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
   @import "../assets/scss/slider";
+
 </style>
 

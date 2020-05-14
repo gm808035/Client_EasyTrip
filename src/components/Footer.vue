@@ -19,13 +19,12 @@ export default {
 <style scoped>
 div[class=footer]{
 
-  position: fixed;
+  /*position: fixed;*/
   height: 50px;
   background-color: red;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  margin-bottom: 25px;
-
+margin-top: 250px;
 }
 </style>

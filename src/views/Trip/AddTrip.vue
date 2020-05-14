@@ -66,10 +66,10 @@
         <input type="number" name="amount_of_seats" id="amount_of_seats" class="login-input" v-model="amount_of_seats">
       </div>
 
-      <div class="mb-more">
-        <label for="free_seats">Свободных мест</label>
-        <input type="number" name="free_seats" id="free_seats" class="login-input" v-model="free_seats">
-      </div>
+<!--      <div class="mb-more">-->
+<!--        <label for="free_seats">Свободных мест</label>-->
+<!--        <input type="number" name="free_seats" id="free_seats" class="login-input" v-model="free_seats">-->
+<!--      </div>-->
 
         <div class="mb-more">
           <button type="submit" class="btn-submit">Добавить</button>
@@ -111,8 +111,8 @@
     data() {
       return {
         driver: '',
-        point_of_shipment: '',
-        destination: '',
+        point_of_shipment: 2,
+        destination: 2,
         date: '',
         time:'',
         price: '',
@@ -137,7 +137,7 @@
           time: this.time,
           price: parseInt(this.price),
           amount_of_seats: parseInt(this.amount_of_seats),
-          free_seats: parseInt(this.free_seats),
+          // free_seats: parseInt(this.free_seats),
           waypoints: this.waypoints
         })
           .then((response) => {

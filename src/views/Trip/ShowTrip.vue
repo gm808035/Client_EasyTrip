@@ -1,14 +1,43 @@
 <template>
-  <div class="row">
-  <div v-if="isLoaded">
-    <h4>Направление: {{trip.point_of_shipment.city_name}} - {{trip.destination.city_name}}</h4>
-    <p>Дата: {{trip.date}}</p>
-    <p>Время: {{trip.time}}</p>
-    <p>Цена: {{trip.price}}</p>
-    <p>Всего мест: {{trip.amount_of_seats}}</p>
-    <p>Свободных мест: {{trip.free_seats}}</p>
-  </div>
+  <div class="row col-md-12">
+    <div class="col-md-5">
+       <div class="row">
+         <div v-if="isLoaded">
+            <h4>Направление: {{trip.point_of_shipment.city_name}} - {{trip.destination.city_name}}</h4>
+            <p>Дата: {{trip.date}}</p>
+            <p>Время: {{trip.time}}</p>
+            <p>Цена: {{trip.price}}</p>
+            <p>Всего мест: {{trip.amount_of_seats}}</p>
+            <p>Свободных мест: {{trip.free_seats}}</p>
 
+            <button @click="addPassenger" :disabled=isFull> Order</button>
+
+         </div>
+       </div>
+    </div>
+
+  <div class="col-md-7">
+    <div id="map">
+      <GmapMap
+        :center="{lat:41.5, lng:74.5}"
+        :zoom="6.7"
+        map-type-id="roadmap"
+        style="width: 100%; height: 500px"
+        class="mt-3"
+        ref="googleMap"
+      >
+        <GmapMarker
+          :key="index"
+          v-for="(c, index) in cities"
+          :position="c.position"
+          :clickable="true"
+          :draggable="true"
+          @click="center=c.position"
+        />
+      </GmapMap>
+      <div id="directions-panel"></div>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -20,10 +49,89 @@
       return {
         id: this.$route.params.id,
         trip: {},
-        isLoaded: false
+        isLoaded: false,
+        passenger: '',
+        trip_id: '',
+        cities: []
       }
     },
     methods:{
+      addPassenger() {
+        this.$store.dispatch('addPassenger', {
+          trip_id: this.$route.params.id,
+          passenger: this.$store.getters.currentUser,
+        })
+          .then((response) => {
+            this.$router.push({ name: 'myTrips' })
+          })
+          .catch(e => {
+            this.errors.push(e)
+
+          })
+      },
+
+
+      runGmap() {
+        const requestOne = axios.get(`http://localhost:3000/cities/` + this.point_of_shipment);
+        const requestTwo = axios.get(`http://localhost:3000/cities/` + this.destination);
+
+        const requestThree = axios.post(`http://localhost:3000/cities/waypoints/byIds`, {
+          waypoints: this.waypoints
+        });
+        axios.all([requestOne, requestTwo, requestThree])
+          .then(
+            axios.spread((...responses) => {
+              getPointsAttr(responses[0].data.attribute, responses[1].data.attribute, responses[2].data)
+            })
+          )
+          .catch(errors => {
+            console.error(errors);
+          });
+          this.cities.push(this.point_of_shipment)
+          this.cities.push(this.destination)
+        const getPointsAttr = (pointAttr, destinationAttr, waypointsAttr) => {
+          let directionsService = new google.maps.DirectionsService
+          let directionsRenderer = new google.maps.DirectionsRenderer
+
+          directionsRenderer.setMap(this.$refs.googleMap.$mapObject);
+          this.calculateAndDisplayRoute(directionsService, directionsRenderer, pointAttr, destinationAttr, waypointsAttr);
+        }
+      },
+      calculateAndDisplayRoute(directionsService, directionsRenderer, pointAttr, destinationAttr, waypointsAttr) {
+        let waypts = [];
+        for (let i = 0; i < waypointsAttr.length; i++) {
+          waypts.push({
+            location: waypointsAttr[i],
+            stopover: true
+          });
+        }
+
+        directionsService.route({
+          origin: pointAttr,
+          destination: destinationAttr,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+            let route = response.routes[0];
+            let summaryPanel = document.getElementById('directions-panel');
+            summaryPanel.innerHTML = '';
+            // For each route, display summary information.
+            for (let i = 0; i < route.legs.length; i++) {
+              let routeSegment = i + 1;
+              summaryPanel.innerHTML += '<b>Отрезок дороги: ' + routeSegment +
+                '</b><br>';
+              summaryPanel.innerHTML += route.legs[i].start_address + ' до ';
+              summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+              summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+            }
+          } else {
+            console.log('Directions request failed due to ' + status);
+          }
+        });
+      }
 
     },
     created() {
@@ -35,7 +143,12 @@
         .catch(e => {
           this.errors.push(e)
         })
-    }
+    },
+    computed: {
+      isFull() {
+        return this.trip.free_seats <= 0
+      }
+    },
   }
 </script>
 

@@ -3,45 +3,63 @@
     <form action="#"  @submit.prevent="searchTrip">
       <div class="top">
         <div class="wrapper">
-            <h2 class="active">Куда Вы хотите отпрваиться? </h2>
-          <label type="text" for="point_of_shipment" style="text-align: left" onautocomplete="this">from </label>
-          <select type="text" v-model="point_of_shipment" class="login-input form-control mb-0" required="required"
-                   id="point_of_shipment">
-            <option v-for="city in cities" :value="city.id" :key="city.id">
-              {{city.city_name}}
-            </option>
+            <h2 class="active" style="margin-top: 55px">Куда Вы хотите отпрваиться? </h2>
+          <select type="text" v-model="point_of_shipment" class="login-input form-control mb-0" required="required" id="point_of_shipment">
+            <option type="hidden" value="" disabled selected hidden style="text-align: center">Откуда</option>
+            <option v-for="city in cities" :value="city.id" :key="city.id"> {{city.city_name}} </option>
           </select>
-
-          <label type="text" for="destination" style="text-align: left">to </label>
           <select type="text" v-model="destination" class="login-input form-control mb-0" required="required" id="destination">
-         <option v-for="city in cities" :value="city.id" :key="city.id">
-           {{city.city_name}}
-         </option>
+           <option type="hidden" value="" disabled selected hidden style="color: #5a6268">Куда</option>
+           <option v-for="city in cities" :value="city.id" :key="city.id"> {{city.city_name}} </option>
           </select>
         <div class="row" style="margin-left: 11px; margin-right: 0">
             <div class="col-lg-6" style="margin-right: 0">
-              <Datepicker input-class="login-input" id="date_of_Birth" v-model="date" />
-             </div>
-             <div class="col-lg-6" style="margin-left: 0">
+                <Datepicker input-class="login-input" v-model="date" placeholder="Дата" onfocus="(this.type='date')"  />
+            </div>
+            <div class="col-lg-6" style="margin-left: 0">
                 <input type="text" id="time" class="fadeIn third" v-model="time" name="time"  placeholder="Время">
-             </div>
+            </div>
         </div>
-          <button type="submit" class=" fadeIn fourth " value="Найти"></button>
+          <button type="submit" class=" fadeIn fourth " value="Найти">Найти</button>
 
-
-          <hr align="center" width="1100" size="2" color="blue" />
-          <div class="row">
+         <div class="row">
+           <div v-if = isLoaded>
             <div v-if="results">
-              <h3>Всего найдено: {{results.length}}</h3>
+              <div class="titleserach" style="background-color: #E2F6F7; height: 50px">
+                <h3 style="color: #164C4F; font-family: serif; margin-top: 5px;font-size: 25px">По результатам поиска найдено {{results.length}} поездки</h3>
+              </div>
               <ul v-for="result in results" :key="result.id">
                 <li style="list-style: none">
                   <router-link :to="{name: 'showTrip', params: {id: result.id}}" class="nav-link">
-                  <h4>Направление: {{result.point_of_shipment.city_name}} - {{result.destination.city_name}}</h4></router-link>
+                    <div class="poisk">
+                      <div class="col-3-6">
+                        <h5 type="title" style="margin-top: 10px">Основной маршрут</h5>
+                        <header style="margin-left: 6px; color: #56baed">  <b>{{result.point_of_shipment.city_name}} - {{result.destination.city_name}}</b></header>
+                      </div>
+                      <div class="col-1-6">
+                        <h5 type="title" style="margin-top: 10px">Дата</h5>
+                        <td></td>
+                        <b style="color: #56baed">{{result.date}} - {{result.time}}</b>
+                      </div>
+                      <div class="col-1-6">
+                        <h5 type="title" style="margin-top: 10px">Стоимость</h5>
+                        <td></td>
+                        <b style="color: #56baed">{{result.price}} KGS </b>
+                      </div>
+                      <div class="col-1-6">
+                        <h5 type="title" style="margin-top: 10px">Свободных мест</h5>
+                        <td></td>
+                        <b style="color: #56baed">{{result.free_seats}}  </b>
+                      </div>
+                    </div>
+
+                  </router-link>
+
                 </li>
               </ul>
-
             </div>
           </div>
+         </div>
         </div>
       </div>
     </form>
@@ -61,6 +79,7 @@
             date: '',
             time:'',
             results: [],
+            isLoaded: false
         }
       },
       methods: {
@@ -74,7 +93,7 @@
           })
             .then(response => {
               this.results = response.data
-              console.log(this.results)
+              this.isLoaded = true
             })
             .catch(e => {
               this.errors.push(e)
@@ -98,7 +117,18 @@
 </script>
 
 <style scoped>
-  input[type=button], input[type=submit], input[type=reset]  {
+  .wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 20px;
+    text-align: center;
+
+  }
+  button[type=button], button[type=submit], button[type=reset]  {
     background-color: #56baed;
     border: none;
     color: white;
@@ -121,7 +151,7 @@
 
   }
 
-  input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+  button[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
     background-color: #39ace7;
   }
 
@@ -157,6 +187,9 @@
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
   }
+  option[class=hidden] {
+    color: #5a6268;
+  }
 div[class=top]{
   margin-top: 30px;
 }
@@ -165,5 +198,31 @@ div[class=top]{
   }
   hr{
     margin-left: 0  ;
+  }
+  div[class=poisk]{
+       border: 3px solid #fff; /* Белая рамка */
+       border-radius: 10px; /* Радиус скругления */
+       display: grid;
+       grid-template-columns: 200px 300px 200px 200px;
+       grid-template-rows: 100px 30px;
+
+       -webkit-border-radius: 5px 5px 5px 5px;
+       /*-webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.1);*/
+       box-shadow: 0 10px 20px 0 rgba(0,0,0,0.1);
+       margin-top: 0px;
+       margin-left: 250px;
+       width: 900px;
+       color: black;
+     }
+  h5[type=title] {
+    color: black;
+  }
+  div[class=titleserach]{
+    border: 3px solid #fff; /* Белая рамка */
+    border-radius: 10px; /* Радиус скругления */
+    -webkit-border-radius: 5px 5px 5px 5px;
+    margin-top: 0px;
+    width: 1500px;
+    color: black;
   }
 </style>

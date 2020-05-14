@@ -1,7 +1,7 @@
 <template>
   <div class="header">
 <!--    <nav id="navigation" class="navbar navbar-dark bg-dark">-->
-    <nav class="navbar navbar-expand-md">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
       <router-link :to="{name: 'home'}" class="navbar-brand"><img src="../assets/logo1.png" alt=""></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -87,7 +87,6 @@
 <style   scoped>
 .navbar-light{
   color: gray;
-  position: fixed;
   background: #333;
 }
 
