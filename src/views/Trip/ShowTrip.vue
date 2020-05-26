@@ -7,9 +7,8 @@
             <p>Дата: {{trip.date}}</p>
             <p>Время: {{trip.time}}</p>
             <p>Цена: {{trip.price}}</p>
-            <p>Всего мест: {{trip.amount_of_seats}}</p>
             <p>Свободных мест: {{trip.free_seats}}</p>
-
+            <p>Driver: {{trip.driver.name}}</p>
             <button @click="addPassenger" :disabled=isFull> Order</button>
 
          </div>
@@ -39,42 +38,6 @@
     </div>
   </div>
   </div>
-<!--  -->
-<!--    <div class="row col-md-12">-->
-<!--      <div class="col-md-5">-->
-<!--    <div v-if="isLoaded" class="col-md-5">-->
-<!--      <h4>Направление: {{trip.point_of_shipment.name}} - {{trip.destination.name}}</h4>-->
-<!--      <p>Дата: {{trip.date_time}}</p>-->
-<!--      <p>Дата: {{trip.time}}</p>-->
-<!--      <p>Цена: {{trip.price}}</p>-->
-<!--      <p>Всего мест: {{trip.amount_of_seats}}</p>-->
-<!--      <p>Свободных мест: {{trip.free_seats}}</p>-->
-<!--    </div>-->
-<!--                <button @click="addPassenger" :disabled=isFull> Order</button>-->
-<!--    <div class="col-md-7">-->
-<!--      <div id="map">-->
-<!--        <GmapMap-->
-<!--          :center="{lat:41.5, lng:74.5}"-->
-<!--          :zoom="6.7"-->
-<!--          map-type-id="roadmap"-->
-<!--          style="width: 100%; height: 500px"-->
-<!--          class="mt-3"-->
-<!--          ref="googleMap"-->
-<!--        >-->
-<!--          <GmapMarker-->
-<!--            :key="index"-->
-<!--            v-for="(c, index) in cities"-->
-<!--            :position="c.position"-->
-<!--            :clickable="true"-->
-<!--            :draggable="true"-->
-<!--            @click="center=c.position"-->
-<!--          />-->
-<!--        </GmapMap>-->
-<!--        <div id="directions-panel"></div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--    </div>-->
 </template>
 
 <script>
@@ -97,6 +60,17 @@
         this.$store.dispatch('addPassenger', {
           trip_id: this.$route.params.id,
           passenger: this.$store.getters.currentUser,
+        })
+          .then((response) => {
+            this.$router.push({ name: 'myTrips' })
+          })
+          .catch(e => {
+            this.errors.push(e)
+
+          })
+        this.$store.dispatch('addNotification', {
+          notification_text: 'Забронровано одно место на поездку',
+          user: this.trip.driver
         })
           .then((response) => {
             this.$router.push({ name: 'myTrips' })

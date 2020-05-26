@@ -8,7 +8,8 @@ axios.defaults.baseURL = 'http://localhost:3000'
 export const store = new Vuex.Store({
   state: {
     token: localStorage.getItem('token') || null,
-    currentUser: JSON.parse(localStorage.getItem('currentUser')) || null
+    currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
+
   },
   getters: {
     loggedIn(state) {
@@ -55,8 +56,7 @@ export const store = new Vuex.Store({
       })
     },
 
-
-      addTrip(context, data) {
+    addTrip(context, data) {
         return new Promise((resolve, reject) => {
           axios.post('/trips', {
             driver: data.driver,
@@ -95,18 +95,11 @@ export const store = new Vuex.Store({
           })
       })
     },
-
-    addIntermediatePoint(context, data) {
-      return new Promise((resolve, reject) => {
-        axios.post('/trips', {
-          driver: data.driver,
-          point_of_shipment: data.point_of_shipment,
-          destination: data.destination,
-          date: data.date,
-          time: data.time,
-          price: data.price,
-          amount_of_seats: data.amount_of_seats,
-          free_seats: data.free_seats,
+    addNotification(context,data){
+      return new Promise((resolve, reject) =>{
+        axios.post('/notifications',{
+          notification_text: data.notification_text,
+          user: data.user
         })
           .then(response => {
             resolve(response)
@@ -115,6 +108,37 @@ export const store = new Vuex.Store({
           .catch(error => {
             reject(error)
             console.log(data)
+          })
+      })
+    },
+
+    // removeNotification(context,data){
+    //   return new Promise((resolve, reject) =>{
+    //     axios.post('/notifications',{
+    //       notification_text: data.notification_text,
+    //       user: data.user
+    //     })
+    //       .then(response => {
+    //         resolve(response)
+    //         console.log(data)
+    //       })
+    //       .catch(error => {
+    //         reject(error)
+    //         console.log(data)
+    //       })
+    //   })
+    // },
+
+    addIntermediatePoint(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.delete('/notifications/', {
+         id: data.id
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
           })
       })
     },

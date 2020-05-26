@@ -6,8 +6,7 @@
           <form action="#" @submit.prevent="addTrip">
             <label for="point_of_shipment" style="text-align: left">Точка отправки</label>
             <div class="stil">
-              <select  v-model="point_of_shipment" class="login-input form-control mb-0" required="required"
-                       id="point_of_shipment" @change='runGmap'>
+              <select style="height: 45px"  v-model="point_of_shipment" class="login-input form-control mb-0" required="required" id="point_of_shipment" @change='runGmap'>
                 <option v-for="city in cities" :value="city.id" :key="city.id">
                   {{city.city_name}}
                 </option>
@@ -38,7 +37,7 @@
 
             <label for="destination" style="text-align: left">Конечная точка</label>
             <div class="stil">
-                <select v-model="destination" class="login-input form-control mb-0" required="required" id="destination" @change='runGmap' >
+                <select style="height: 45px" v-model="destination" class="login-input form-control mb-0" required="required" id="destination" @change='runGmap' >
                 <option v-for="(city) in cities" :value="city.id" :key="city.id">
                   {{city.city_name}}
                 </option>
@@ -51,8 +50,8 @@
             </div>
 
       <div class="">
-        <label for="time">time</label>
-        <input type="text" name="time" id="time" class="login-input" v-model="time">
+        <label for="time">Время отправки</label>
+        <input type="time" name="time" id="time" class="login-input" v-model="time">
       </div>
 
 
@@ -72,7 +71,7 @@
 <!--      </div>-->
 
         <div class="mb-more">
-          <button type="submit" class="btn-submit">Добавить</button>
+          <button style="max-width: 490px; height: 50px" type="submit" class="btn-submit">Добавить</button>
         </div>
           </form>
         </div>
@@ -111,8 +110,8 @@
     data() {
       return {
         driver: '',
-        point_of_shipment: 2,
-        destination: 2,
+        point_of_shipment: '',
+        destination: '',
         date: '',
         time:'',
         price: '',
@@ -248,28 +247,6 @@
   width: 100%;
   margin-left: 0;
 }
-/*option{*/
-/*  background-color: #f6f6f6;*/
-/*  border: none;*/
-/*  color: #0d0d0d;*/
-/*  padding: 15px 32px;*/
-/*  text-align: center;*/
-/*  text-decoration: none;*/
-/*  display: inline-block;*/
-/*  font-size: 16px;*/
-/*  margin: 5px;*/
-/*  width: 85%;*/
-/*  height: 100px;*/
-/*  border: 2px solid #f6f6f6;*/
-/*  -webkit-transition: all 0.5s ease-in-out;*/
-/*  -moz-transition: all 0.5s ease-in-out;*/
-/*  -ms-transition: all 0.5s ease-in-out;*/
-/*  -o-transition: all 0.5s ease-in-out;*/
-/*  transition: all 0.5s ease-in-out;*/
-/*  -webkit-border-radius: 5px 5px 5px 5px;*/
-/*  border-radius: 5px 5px 5px 5px;*/
-/*}*/
-
 select{
   background-color: #f6f6f6;
   border: none;
@@ -291,7 +268,7 @@ select{
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-button[class=btnAddpoint]{
+button[type=btnAddpoint]{
   font-size: 16px;
   background: rgb(64, 179, 140);
   padding: 0.4rem 1.3rem;
@@ -303,6 +280,18 @@ button[class=btnAddpoint]{
   font-style: inherit;
 }
 
+button[type=submit]{
+  font-size: 16px;
+  /*background: rgb(64, 179, 140);*/
+  background-color: #0b92d6;
+  padding: 0.4rem 1.3rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 20px;
+  font-style: inherit;
+}
 div[class=stil]{
   background-color: #f6f6f6;
   border: none;
@@ -348,7 +337,7 @@ dix[class=stil]:focus {
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=number] {
+input[type=number], input[type=time] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;

@@ -7,20 +7,20 @@
       <router-link :to="{name: 'showTrip', params: {id: trip.id}}" class="nav-link">
 <!--        <b>{{index + 1}}: </b>-->
 
-           <div class="container">
+           <div class="container" >
              <div class="col-4-6">
-                <h5 style="margin-top: 20px">Основной маршрут</h5>
+                <h5 style="margin-top: 20px; color: black">Основной маршрут</h5>
                <header style="margin-left: 6px">  <b>{{trip.point_of_shipment.city_name}} -> {{trip.destination.city_name}}</b></header>
              </div>
           <div class="col-1-5">
-              <h5 style="margin-top: 20px">Дата</h5>
+              <h5 style="margin-top: 20px; color: black">Дата/время</h5>
               <td></td>
               <b>{{trip.date}} - {{trip.time}}</b>
           </div>
              <div class="col-1-6">
-               <h5 style="margin-top: 20px">Стоимость</h5>
+               <h5 style="margin-top: 20px;margin-left: 0px; color: black">Стоимость</h5>
                <td></td>
-               <b>{{trip.price}} KGS </b>
+               <b style="margin-left: 10px">{{trip.price}} KGS </b>
              </div>
         </div>
       </router-link>
@@ -64,6 +64,7 @@
   .container{
     /*border: 3px solid #fff; !* Белая рамка *!*/
     /*border-radius: 10px; !* Радиус скругления *!*/
+    border-color: black;
     display: grid;
     grid-template-columns: 500px 500px 200px;
     grid-template-rows: 100px 30px;

@@ -41,15 +41,16 @@
                 {{currentUser.name}} {{currentUser.surname}}
 
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                  <a class="dropdown-item" href="#">Профиль </a>
-                <a class="dropdown-item" href="/myTrips">Ваши поездки</a>
-                <a class="dropdown-item" href="#">Уведомления о поездках</a>
-                <a class="dropdown-item" href="#"> Настройки</a>
+              <div class="dropdown-menu dropdown-menu-right" type="menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#" ><i class="fa fa-user-o mr-1" aria-hidden="true"></i>Профиль</a>
+                  <a class="dropdown-item" href="/myTrips">Ваши поездки</a>
+                  <a class="dropdown-item" href="#">
+                  <i class="fa fa-bell fa-md"></i> Уведомления о поездках</a>
+                  <a class="dropdown-item" href="#"><i class="fa fa-cog" aria-hidden="true"></i> Настройки</a>
                 <div class="dropdown-divider"></div>
-                <div class="log">
-                <router-link :to="{name: 'logout'}" class="nav-link">Выйти</router-link>
+                 <div class="log">
+                  <router-link :to="{name: 'logout'}" class="nav-link">Выйти</router-link>
                 </div>
               </div>
             </li>
@@ -116,4 +117,14 @@
 div[class=log]{
   margin-left: 20px;
 }
+@media screen and (min-width: 1280px) {
+  .dropbtn {
+    font-size: 17px;
+  }
+}
+  div[type=menu] {
+    /*font-size:25px;*/
+   max-width: 300px;
+    height: 300px ;
+  }
 </style>
