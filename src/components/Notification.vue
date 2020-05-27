@@ -1,42 +1,36 @@
 <template>
   <div class="notification-block" id="notificationsDropdown">
     <!-- <div>{{notifications}}</div> -->
-    <NotificationElement v-for="notification in notifications" :key="notification.id" :id="notification.id">
+    <NotificationEl v-for="notification in notifications" :key="notification.id" :id="notification.id">
       {{notification.notification_text}}
-    </NotificationElement>
+    </NotificationEl>
   </div>
 </template>
 <script>
-  import NotificationElement from "./NotificationElement"
+  import NotifocationEl from "./NotifocationEl";
   import axios from "axios";
 
   export default {
     name: "notification-block",
     data() {
       return{
-        notifications: []
+        notifications: {}
       }
     },
     components: {
-      NotificationElement
+      NotifocationEl
     },
     computed: {
-      getNotice() {
-        // return this.$store.state.notifications;
-        axios.get(`http://localhost:3000/notifications`)
-          .then(response => {
-            this.notification = response.data
-          })
-          .catch(e => {
-            this.errors.push(e)
-          })
-      }
     },
-//   methods: {
-//     getNotifications() {
-//       this.$store.dispatch("notifications/getNotifications");
-//     }
-//   }
+    created() {
+      axios.get(`http://localhost:3000/notifications`)
+        .then(response => {
+          this.notifications = response.data
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+    }
   };
 </script>
 

@@ -99,7 +99,8 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) =>{
         axios.post('/notifications',{
           notification_text: data.notification_text,
-          user: data.user
+          toUser: data.toUser,
+          fromUser: data.fromUser
         })
           .then(response => {
             resolve(response)

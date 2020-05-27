@@ -7,6 +7,7 @@ import AddTrip from "../views/Trip/AddTrip";
 import ShowTrip from "../views/Trip/ShowTrip";
 import SearchTrip from "../views/Trip/SearchTrip";
 import MyListTrip from "../views/Trip/MyListTrip";
+import NotificationsMessage from "../views/NotificationsMessage";
 
 const routes = [
   {
@@ -76,6 +77,14 @@ const routes = [
     path: '/myTrips',
     name: 'myTrips',
     component: MyListTrip,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/notificationMessage',
+    name: 'notification',
+    component: NotificationsMessage,
     meta: {
       requiresAuth: true
     }

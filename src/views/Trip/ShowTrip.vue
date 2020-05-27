@@ -69,8 +69,9 @@
 
           })
         this.$store.dispatch('addNotification', {
-          notification_text: 'Забронровано одно место на поездку',
-          user: this.trip.driver
+          notification_text: this.$store.getters.currentUser.name  + ' Забронровал(а) одно место на поездку',
+          toUser: this.trip.driver,
+          fromUser: this.$store.getters.currentUser,
         })
           .then((response) => {
             this.$router.push({ name: 'myTrips' })

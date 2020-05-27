@@ -28,6 +28,14 @@
               </li>
             </ul>
 
+<!--          <li class="dropdown" v-if="loggedIn">-->
+<!--            <button class="dropbtn" onclick="showNotifications()">-->
+<!--              <i class="fa fa-bell fa-md">-->
+<!--                <span class="badge badge-info" style="font-size: 15px; vertical-align: text-top">{{myNotice.length}}</span>-->
+<!--              </i>-->
+<!--            </button>-->
+<!--            <notification />-->
+<!--          </li>-->
         </div>
           <ul class="navbar-nav" v-if="loggedIn">
             <li class="nav-item dropdown ml-auto">
@@ -37,16 +45,29 @@
                 id="navbarDropdown"
                 data-toggle="dropdown"
                 data-target="navbarDropdown"
+                style="align-items: center"
               >
-                {{currentUser.name}} {{currentUser.surname}}
-
+              <i>  {{currentUser.surname}}</i>
+<!--                  <span></span>-->
+                    <i class="fa fa-user-circle " style=" width:30px; height:30px; position: relative; font-size: 50px; margin-top: -15px; margin-left: 10px" aria-hidden="true" ></i>
+                        <i style="
+                        background: red;
+                        border: 1px solid white;
+                        border-radius: 1000%;
+                           font-size: small;
+                           position: absolute;
+                           top: -15px;
+                           left: 107px;
+                           min-width: 19px; text-align: center; color: white; font-size: 13px"
+                        >  {{myNotice.length}}
+                    </i>
               </a>
-
-              <div class="dropdown-menu dropdown-menu-right" type="menu" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu dropdown-menu-right" type="menu" aria-labelledby="navbarDropdown" style="max-width: 8800px">
                   <a class="dropdown-item" href="#" ><i class="fa fa-user-o mr-1" aria-hidden="true"></i>Профиль</a>
                   <a class="dropdown-item" href="/myTrips">Ваши поездки</a>
-                  <a class="dropdown-item" href="#">
-                  <i class="fa fa-bell fa-md"></i> Уведомления о поездках</a>
+                  <a class="dropdown-item" href="/notificationMessage">
+                  <i class="fa fa-bell-o fa-md"></i> Уведомления о поездках {{myNotice.length}}</a>
+<!--                <router-link :to="{name: 'notificationMessage'}" class="nav-link">Уведомления о поездках {{myNotice.length}}</router-link>-->
                   <a class="dropdown-item" href="#"><i class="fa fa-cog" aria-hidden="true"></i> Настройки</a>
                 <div class="dropdown-divider"></div>
                  <div class="log">
@@ -72,8 +93,15 @@
 </template>
 
 <script>
+  import axios from "axios";
+
   export default {
     name: "Header",
+    data() {
+      return{
+        myNotice: []
+      }
+    },
     computed: {
       loggedIn() {
         return this.$store.getters.loggedIn
@@ -81,16 +109,34 @@
       currentUser() {
         return this.$store.getters.currentUser
       }
+    },
+    created() {
+      axios.post(`http://localhost:3000/notifications/myNotifications/`, {
+        toUser: this.$store.getters.currentUser.id
+      })
+        .then(response => {
+          this.myNotice = response.data
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+    },
+    methods: {
+
     }
   }
 </script>
 
 <style   scoped>
+
 .navbar-light{
   color: gray;
   background: #333;
 }
-
+.dropdown-toggle::after {
+  /*display:none;*/
+margin-left: 30px;
+}
 .header{
   position: fixed;
   top: 0;
@@ -100,9 +146,6 @@
   z-index: 10;
   background: white;
   outline-color: black;
-  /*!*-webkit-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);*!*/
-  /*-moz-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);*/
-  /*box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);*/
 }
   .nav-link{
     color:black;
@@ -122,8 +165,7 @@ div[class=log]{
     font-size: 17px;
   }
 }
-  div[type=menu] {
-    /*font-size:25px;*/
+div[type=menu] {
    max-width: 300px;
     height: 300px ;
   }
