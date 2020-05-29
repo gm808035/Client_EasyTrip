@@ -64,6 +64,8 @@
         <label for="amount_of_seats">Кол-во мест</label>
         <input type="number" name="amount_of_seats" id="amount_of_seats" class="login-input" v-model="amount_of_seats">
       </div>
+            <label for="amount_of_seats">Описание поездки</label>
+            <textarea type="inf" name="inf_about_yourself" id="inf_about_yourself" class="login-input" rows="4" v-model="inf_about_trip"/>
 
 <!--      <div class="mb-more">-->
 <!--        <label for="free_seats">Свободных мест</label>-->
@@ -117,6 +119,7 @@
         price: '',
         amount_of_seats: '',
         free_seats: '',
+        inf_about_trip: '',
         waypoints: [],
         cities: [],
         pointTest:[
@@ -136,7 +139,7 @@
           time: this.time,
           price: parseInt(this.price),
           amount_of_seats: parseInt(this.amount_of_seats),
-          // free_seats: parseInt(this.free_seats),
+          inf_about_trip: this.inf_about_trip,
           waypoints: this.waypoints
         })
           .then((response) => {
@@ -311,6 +314,27 @@ div[class=stil]{
   transition: all 0.5s ease-in-out;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
+}
+textarea {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  max-width: 484px;
 }
 div[class=previous]{
   background-color: #f6f6f6;

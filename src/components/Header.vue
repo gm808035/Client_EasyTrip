@@ -63,7 +63,7 @@
                     </i>
               </a>
               <div class="dropdown-menu dropdown-menu-right" type="menu" aria-labelledby="navbarDropdown" style="max-width: 8800px">
-                  <a class="dropdown-item" href="#" ><i class="fa fa-user-o mr-1" aria-hidden="true"></i>Профиль</a>
+                  <a class="dropdown-item" href="/profile" ><i class="fa fa-user-o mr-1" aria-hidden="true"></i>Профиль</a>
                   <a class="dropdown-item" href="/myTrips">Ваши поездки</a>
                   <a class="dropdown-item" href="/notificationMessage">
                   <i class="fa fa-bell-o fa-md"></i> Уведомления о поездках {{myNotice.length}}</a>

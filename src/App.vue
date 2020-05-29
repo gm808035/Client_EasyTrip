@@ -13,7 +13,6 @@
   import Search from './components/Search';
   import TripList from "./components/TripList";
   import PlaceList from "./components/PlaceList";
-
   // import Vuex from 'vuex'
   export default {
 

@@ -17,14 +17,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  body{
+    position: relative;
+  }
 div[class=footer]{
 
-  /*position: fixed;*/
+  position: relative;
   height: 50px;
   background-color: red;
   bottom: 0px;
   left: 0px;
   right: 0px;
-margin-top: 250px;
+  margin-top: 400px;
+
 }
 </style>

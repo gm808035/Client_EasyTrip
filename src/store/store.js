@@ -34,7 +34,7 @@ export const store = new Vuex.Store({
   actions: {
     register(context,data){
       return new Promise((resolve, reject) => {
-        axios.post('/users',{
+        axios.post('/users/',{
           email: data.email,
           password: data.password,
           name: data.name,
@@ -55,7 +55,48 @@ export const store = new Vuex.Store({
           })
       })
     },
+    editProfile(context,data){
+      return new Promise((resolve, reject) => {
+        axios.put('/users/:id',{
+          userId: data.userId,
+          email: data.email,
+          password: data.password,
+          name: data.name,
+          surname: data.surname,
+          phone: data.phone,
+          date_of_Birth: data.date_of_Birth,
+          inf_about_yourself: data.inf_about_yourself,
 
+        })
+          .then(response => {
+            resolve(response)
+            console.log(data)
+          })
+          .catch(error => {
+            reject(error)
+            console.log(data)
+          })
+      })
+    },
+    addCar(context,data){
+      return new Promise((resolve, reject) => {
+        axios.post('/cars',{
+          user: data.user,
+          car_model: data.car_model,
+          country: data.country,
+          car_number: data.car_number
+
+        })
+          .then(response => {
+            resolve(response)
+            console.log(data)
+          })
+          .catch(error => {
+            reject(error)
+            console.log(data)
+          })
+      })
+    },
     addTrip(context, data) {
         return new Promise((resolve, reject) => {
           axios.post('/trips', {
@@ -66,7 +107,7 @@ export const store = new Vuex.Store({
             time: data.time,
             price: data.price,
             amount_of_seats: data.amount_of_seats,
-            // free_seats: data.free_seats,
+            inf_about_trip: data.inf_about_trip,
             waypoints: data.waypoints,
           })
             .then(response => {

@@ -8,6 +8,9 @@ import ShowTrip from "../views/Trip/ShowTrip";
 import SearchTrip from "../views/Trip/SearchTrip";
 import MyListTrip from "../views/Trip/MyListTrip";
 import NotificationsMessage from "../views/NotificationsMessage";
+import Profile from "../views/UserProfile/Profile";
+import Car from "../views/UserProfile/Car";
+import Preference from "../views/UserProfile/Preference";
 
 const routes = [
   {
@@ -85,6 +88,30 @@ const routes = [
     path: '/notificationMessage',
     name: 'notification',
     component: NotificationsMessage,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/car',
+    name: 'car',
+    component: Car,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/preference',
+    name: 'preference',
+    component: Preference,
     meta: {
       requiresAuth: true
     }
