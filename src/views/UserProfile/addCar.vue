@@ -9,22 +9,12 @@
           <li><a href="preference">Мои предпочтения</a></li>
           <li><a href="">Надежность пользователя</a></li>
           <li><a href="/car">Мой автомобиль</a></li>
-          <li><a href="">Почтовый адрес</a></li>
+          <li><a href="/ShowCar">Почтовый адрес</a></li>
           <li><a href="">Пароль</a></li>
         </ul>
       </div>
-<!--    <div >-->
-<!--      <div  class="car">-->
-<!--        <label>Страна</label>-->
-<!--        <div v-for="car in cars" :key="car.id">-->
-<!--          {{car.country}}-->
-<!--        </div>-->
-<!--        <label>Модель</label>-->
-
-<!--        <label>Номерной знак</label>-->
-
-<!--      </div>-->
-<!--    </div>-->
+    <div >
+    </div>
      <div  class="container">
         <h2> Какие номера у машины?</h2>
        <br>
@@ -44,8 +34,6 @@
 </template>
 
 <script>
-  import axios from "axios";
-
   export default {
     name: "Car",
     data() {
@@ -63,17 +51,6 @@
       },
     },
     created() {
-      axios.get('http://localhost:3000/cars/:id', {
-      user: this.$store.getters.currentUser.id
-      })
-        .then(response => {
-          this.cars = response.data
-          this.isLoaded = true
-        })
-        .catch(e => {
-          this.errors.push(e)
-
-        })
     },
     methods: {
       addCar() {
@@ -85,43 +62,13 @@
         })
           .then((response) => {
             console.log("ok")
-            this.getCar()
+            this.$router.push({ name: 'showCar' })
 
           })
       },
-      getCar() {
-        axios.get('http://localhost:3000/cars/:id', {
-          user: this.$store.getters.currentUser.id
-        })
-          .then(response => {
-            this.cars = response.data
-            this.isLoaded = true
-          })
-          .catch(e => {
-            this.errors.push(e)
 
-          })
-      },
-      edit() {
-        this.$store.dispatch('editProfile', {
-          userId: this.$store.getters.currentUser.id,
-          email: this.email,
-          password: this.password,
-          name: this.name,
-          surname: this.surname,
-          phone: this.phone,
-          date_of_Birth: this.date_of_Birth,
-          inf_about_yourself: this.inf_about_yourself
-        })
-          .then(response => {
-            console.log("ok")
-          })
-          .catch(err => console.log(err.message))
-      }
     },
-    watch:{
 
-    }
   }
 </script>
 

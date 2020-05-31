@@ -8,7 +8,14 @@
             <li><a href="">Фото профиля</a></li>
             <li><a href="/preference">Мои предпочтения</a></li>
             <li><a href="">Надежность пользователя</a></li>
-            <li><a href="/car">Мой автомобиль</a></li>
+            <div class="li" v-if="!isLoaded">
+<!--              <li> <router-link :to="{name: 'car'}" class="nav-link">Мой автомобиль</router-link></li>-->
+              <li><a href="/car">Мой автомобиль</a></li>
+            </div>
+            <div class="li" v-else-if="isLoaded">
+              <li> <router-link :to="{name: 'showCar'}" class="nav-link">Мой автомобиль</router-link></li>
+            </div>
+<!--            <li><a href="/car">Мой автомобиль</a></li>-->
             <li><a href="">Почтовый адрес</a></li>
             <li><a href="">Пароль</a></li>
           </ul>
@@ -19,7 +26,7 @@
                 <div class="main">
                   <div class="field">
                     <a class="">Пол</a>
-                    <a style="margin-top: 19px; margin-left: 250px">{{currentUser.gender}}</a>
+                    <a style="margin-top: 19px; margin-left: 250px">{{gender}}</a>
                     <br>
                   </div>
                   <div class="field">
@@ -61,8 +68,12 @@
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
         name: "Profile",
+
+
       data() {
           return {
             name: this.$store.getters.currentUser.name,
@@ -73,7 +84,22 @@
             password: this.$store.getters.currentUser.password,
             gender: this.$store.getters.currentUser.gender,
             inf_about_yourself: this.$store.getters.currentUser.inf_about_yourself,
+            isLoaded: false
         }
+      },
+      created() {
+        axios.get('http://localhost:3000/cars/:id', {
+          user: this.$store.getters.currentUser.id
+        })
+          .then(response => {
+            this.cars = response.data
+            this.isLoaded = true
+            console.log(this.isLoaded)
+          })
+          .catch(e => {
+            this.errors.push(e)
+
+          })
       },
       computed: {
         currentUser() {
@@ -191,19 +217,33 @@ input[type=column]{
     margin-left: 10px;
     margin-top: 8px;
   }
+  div[class=li] {
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 1px;
+    margin-bottom: 10px;
+    margin-left: 4px;
+    margin-top: -8px;
+  }
+
+  div[class=li] a {
+    text-decoration: none;
+    color:  #616a6b;
+    display: inline-block;
+  }
+
   .widget i {
     border-bottom: 1px solid #eaeaea;
     padding-bottom: 15px;
     margin-bottom: 15px;
     margin-left: 10px;
   }
-  .widget div[class=profile-header-menu]{
-   margin-top: 50px;
-    padding: 0;
-    list-style: none;
-    width: 250px;
-    border: 2px solid #f1f1f1;
-  }
+  /*.widget div[class=profile-header-menu]{*/
+  /* margin-top: 50px;*/
+  /*  padding: 0;*/
+  /*  list-style: none;*/
+  /*  width: 250px;*/
+  /*  border: 2px solid #f1f1f1;*/
+  /*}*/
   .widget li:last-child {
     border-bottom: none;
     margin-bottom: 0;
@@ -215,6 +255,8 @@ input[type=column]{
     color:  #616a6b;
     display: inline-block;
   }
+
+
   .widget li:before {
     font-family: FontAwesome;
     font-size: 20px;

@@ -17,8 +17,8 @@
             <input type="text" id="surname" class="fadeIn third" name="surname" v-model="surname" placeholder="Surname">
 
                    <select type="gender" style="text-align: center" class="fadeIn third" name="gender" v-model="gender">
-                     <option value="Male">Male</option>
-                     <option value="Female">Female</option>
+                     <option value="Мужчина">Мужчина</option>
+                     <option value="Женщина">Женщина</option>
                    </select>
 
             <input type="text" id="phone" class="fadeIn third" name="phone" v-model="phone" placeholder="phone">
@@ -61,6 +61,11 @@
           password: '',
           gender: '',
           inf_about_yourself: '',
+          // smoke: 'Normal',
+          // talk: 'Normal',
+          // animal: 'Normal',
+          // music: 'Normal',
+
         }
       },
       methods: {
@@ -73,7 +78,13 @@
             gender: this.gender,
             date_of_Birth: this.date_of_Birth,
             phone: this.phone,
-            inf_about_yourself: this.inf_about_yourself
+            inf_about_yourself: this.inf_about_yourself,
+            // smoke: 'Normal',
+            // talk: 'Normal',
+            // animal: 'Normal',
+            // music: 'Normal',
+            // user: this.$store.getters.currentUser,
+
           })
             .then(response => {
               this.$router.push({ name: 'login' })

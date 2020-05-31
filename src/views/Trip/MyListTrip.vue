@@ -1,32 +1,42 @@
 <template>
   <div class="row">
+        <ul>
+                <div class="top"  style="margin-top: -10px">
+                  <h2 class="active" style="margin-left: 650px">Ваши поездки </h2>
+                </div>
+          <div class="info" style="margin-top: -100px; margin-left: 150px">
+          <li v-for="(trip) in myTrips" :key="trip.id">
+            <router-link :to="{name: 'showTrip', params: {id: trip.id}}" class="nav-link">
+      <!--        <b>{{index + 1}}: </b>-->
 
-  <ul>
-    <h3 style="margin-left: 50px">Ваши поездки</h3>
-    <li v-for="(trip) in myTrips" :key="trip.id">
-      <router-link :to="{name: 'showTrip', params: {id: trip.id}}" class="nav-link">
-<!--        <b>{{index + 1}}: </b>-->
+                 <div class="container" >
+                   <div class="col-3-6">
+                      <h5 style="margin-top: 20px; color: black">Основной маршрут</h5>
+                     <header style="margin-left: 6px">  <b>{{trip.point_of_shipment.city_name}} -> {{trip.destination.city_name}}</b></header>
+                   </div>
+                <div class="col-1-6">
+                    <h5 style="margin-top: 20px; color: black">Дата/время</h5>
+                    <td></td>
+                    <b>{{trip.date}} - {{trip.time}}</b>
+                </div>
+                   <div class="col-1-6">
+                     <h5 style="margin-top: 20px;margin-left: 0px; color: black">Стоимость</h5>
+                     <td></td>
+                     <b style="margin-left: 10px">{{trip.price}} KGS </b>
+                   </div>
+                   <div class="col-1-6">
+                     <h5 style="margin-top: 20px;margin-left: 0px; color: black">Кол-во мест</h5>
+                     <td></td>
+                     <b style="margin-left: 45px">{{trip.free_seats}}  </b>
+                   </div>
 
-           <div class="container" >
-             <div class="col-4-6">
-                <h5 style="margin-top: 20px; color: black">Основной маршрут</h5>
-               <header style="margin-left: 6px">  <b>{{trip.point_of_shipment.city_name}} -> {{trip.destination.city_name}}</b></header>
-             </div>
-          <div class="col-1-5">
-              <h5 style="margin-top: 20px; color: black">Дата/время</h5>
-              <td></td>
-              <b>{{trip.date}} - {{trip.time}}</b>
+              </div>
+            </router-link>
+
+          </li>
           </div>
-             <div class="col-1-6">
-               <h5 style="margin-top: 20px;margin-left: 0px; color: black">Стоимость</h5>
-               <td></td>
-               <b style="margin-left: 10px">{{trip.price}} KGS </b>
-             </div>
-        </div>
-      </router-link>
+        </ul>
 
-    </li>
-  </ul>
   </div>
 </template>
 
@@ -66,7 +76,7 @@
     /*border-radius: 10px; !* Радиус скругления *!*/
     border-color: black;
     display: grid;
-    grid-template-columns: 500px 500px 200px;
+    grid-template-columns: 300px 300px 300px 300px;
     grid-template-rows: 100px 30px;
 
     -webkit-border-radius: 5px 5px 5px 5px;

@@ -8,59 +8,112 @@
         <li><a href="">Фото профиля</a></li>
         <li><a href="preference">Мои предпочтения</a></li>
         <li><a href="">Надежность пользователя</a></li>
-        <li><a href="/car">Мой автомобиль</a></li>
+        <div class="li" v-if="!isLoaded">
+          <li> <router-link :to="{name: 'car'}" class="nav-link">Мой автомобиль</router-link></li>
+        </div>
+        <div class="li" v-else-if="isLoaded">
+          <li> <router-link :to="{name: 'showCar'}" class="nav-link">Мой автомобиль</router-link></li>
+        </div>
         <li><a href="">Почтовый адрес</a></li>
         <li><a href="">Пароль</a></li>
       </ul>
     </div>
 
-    <div class="container" >
-<!--      <section type="text">-->
-<!--        <option>-->
-<!--           <span class="fa-stack fa-lg">-->
-<!--          <i class="fa fa-circle fa-stack-2x"></i>-->
-<!--          <i class="fa fa-flag fa-stack-1x fa-inverse"></i>-->
-<!--        </span>-->
-<!--        </option>-->
-<!--      </section>-->
-<!--      <div class="set">-->
-<!--        <span class="fa-stack fa-lg">-->
-<!--          <i class="fa fa-circle fa-stack-2x"></i>-->
-<!--          <i class="fa fa-flag fa-stack-1x fa-inverse"></i>-->
-<!--        </span>-->
+    <div class="container">
+<!--      <div class="icon" style="">-->
+<!--      <label style="" > Разговорчивость:</label>-->
+      <span></span>
+      <br>
+      <div class="row" style="margin-left: 150px; margin-top: 10px">
+        <label style="margin-left: -140px" > Разговорчивость:</label>
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="talk" value="Bad" v-model="talk" checked >
+            <i type="icon" class="fa fa-comment-o fa-3x" aria-hidden="true"></i>
+          </label>
+        </div>
+          <div class="col-2">
+            <label type="">
+              <input type="radio" name="talk" value="Normal" v-model="talk" >
+              <i type="icon" class="fa fa-commenting-o fa-3x" aria-hidden="true"></i>
+            </label>
+          </div>
+          <div class="col-2">
+            <label type="">
+              <input type="radio" name="talk" value="Good" v-model="talk" >
+              <i type="icon" class="fa fa-comments-o fa-3x" aria-hidden="true"></i>
+            </label>
+         </div>
+      </div>
 
-<!--      </div>-->
-      <label> Общительность</label>
-      <ul class="donate-now">
-        <li>
-          <i type="radio" class="fa fa-circle fa-stack-2x"></i>
-<!--          <input type="radio" id="a25" name="amount" />-->
-<!--          <label for="a25">$25</label>-->
-        </li>
-        <li>
-          <i class="fa fa-circle fa-stack-2x"></i>
-<!--          <input type="radio" id="a50" name="amount" />-->
-<!--          <label for="a50">$50</label>-->
-        </li>
-        <li>
-          <i class="fa fa-circle fa-stack-2x"></i>
-<!--          <input type="radio" id="a75" name="amount" checked="checked" />-->
-<!--          <label for="a75">$75</label>-->
-        </li>
-        <li>
-          <i class="fa fa-circle fa-stack-2x"></i>
-<!--          <input type="radio" id="a100" name="amount" />-->
-<!--          <label for="a100">$100</label>-->
-        </li>
-        <li>
-          <i class="fa fa-circle fa-stack-2x"></i>
-<!--          <input type="radio" id="other" name="amount" />-->
-<!--          <label for="other">other:</label>-->
-        </li>
-        <li>
-          <input type="text" id="otherAmount" name="numAmount" />
-        </li>
-      </ul>
+      <label style="margin-top: 70px; margin-left: 10px" > Курение:</label>
+      <div class="row" style="margin-left: 150px">
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="smoke" value="Bad" v-model="smoke"  >
+            <i  type="icon" class="fa fa-ban fa-3x"></i>
+          </label>
+        </div>
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="smoke" value="Normal" v-model="smoke" checked>
+            <i type="icon" class="fas fa-smoking-ban  fa-3x" aria-hidden="true"></i>
+          </label>
+        </div>
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="smoke" value="Good" v-model="smoke" >
+            <i type="icon" class="fas fa-smoking fa-3x" aria-hidden="true"></i>
+          </label>
+        </div>
+      </div>
+
+      <label style="margin-top: 70px; margin-left: 10px" > Животные:</label>
+      <div class="row" style="margin-left: 150px">
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="animal" value="Bad" v-model="animal"  >
+            <i type="icon" class="fa fa-ban fa-3x"></i>
+          </label>
+        </div>
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="animal" value="Normal" v-model="animal" checked>
+            <i type="icon" class="fas fa-paw  fa-3x" style="color: #5a6268" aria-hidden="true"></i>
+          </label>
+        </div>
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="animal" value="Good" v-model="animal" >
+            <i type="icon"  class="fas fa-paw fa-3x" aria-hidden="true"></i>
+          </label>
+        </div>
+      </div>
+
+      <label style="margin-top: 70px; margin-left: 10px" > Музыка:</label>
+      <div class="row" style="margin-left: 150px">
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="music" value="Bad" v-model="music" >
+            <i type="icon" class="fas fa-volume-mute fa-3x"></i>
+          </label>
+        </div>
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="music" value="Normal" v-model="music" checked>
+            <i type="icon" class="fas fa-volume-down  fa-3x" aria-hidden="true"></i>
+          </label>
+        </div>
+        <div class="col-2">
+          <label type="">
+            <input type="radio" name="music" value="Good" v-model="music">
+            <i type="icon" class="fa fa-volume-up fa-3x" aria-hidden="true"></i>
+          </label>
+        </div>
+      </div>
+      <br>
+      <button style="margin-left: 230px; margin-top: 20px" @click="editPref"> Сохранить</button>
+
     </div>
   </div>
 
@@ -76,8 +129,8 @@
         smoke: '',
         talk: '',
         animal: '',
-        music: false,
-        cars:[]
+        music: '',
+        isLoaded: false
       }
     },
     computed: {
@@ -92,6 +145,7 @@
         .then(response => {
           this.cars = response.data
           this.isLoaded = true
+          console.log(this.isLoaded)
         })
         .catch(e => {
           this.errors.push(e)
@@ -99,48 +153,19 @@
         })
     },
     methods: {
-      addCar() {
-        this.$store.dispatch('addCar', {
-          user: this.$store.getters.currentUser,
-          car_model: this.car_model,
-          country: this.country,
-          car_number: this.car_number
+      editPref() {
+        this.$store.dispatch('editPref', {
+          userId: this.$store.getters.currentUser.id,
+          smoke: this.smoke,
+          talk: this.talk,
+          animal: this.animal,
+          music: this.music
         })
           .then((response) => {
             console.log("ok")
-            this.getCar()
 
           })
       },
-      getCar() {
-        axios.get('http://localhost:3000/cars/:id', {
-          user: this.$store.getters.currentUser.id
-        })
-          .then(response => {
-            this.cars = response.data
-            this.isLoaded = true
-          })
-          .catch(e => {
-            this.errors.push(e)
-
-          })
-      },
-      edit() {
-        this.$store.dispatch('editProfile', {
-          userId: this.$store.getters.currentUser.id,
-          email: this.email,
-          password: this.password,
-          name: this.name,
-          surname: this.surname,
-          phone: this.phone,
-          date_of_Birth: this.date_of_Birth,
-          inf_about_yourself: this.inf_about_yourself
-        })
-          .then(response => {
-            console.log("ok")
-          })
-          .catch(err => console.log(err.message))
-      }
     },
     watch:{
 
@@ -151,15 +176,23 @@
 <style scoped>
   * {box-sizing: border-box; margin: 0;}
   .container{
+    background-color: white;
     background-color: #f2f2f2;
     margin-left: 320px;
     margin-top: -380px;
-    height: 400px;
+    height: 570px;
     max-width: 800px;
+    font-family: FontAwesome ;
+    font-style: unset;
+    font-size: 19px;
+    position: static;
   }
-  .car{
-    margin-top: 50px;
-    margin-left: 200px;
+  div[class=icon]{
+    margin-top: 100px;
+  }
+  .row i {
+    /*margin-left: 50px;*/
+    margin-top: -10px;
   }
 
 
@@ -282,52 +315,40 @@
   .widget li:nth-child(5):before {content:"\f1b9";}
   .widget li:nth-child(6):before {content:"\f0d5";}
   .widget li:nth-child(7):before {content:"\f13e";}
-  .donate-now {
-    list-style-type: none;
-    margin: 25px 0 0 0;
-    padding: 0;
-  }
 
-  .donate-now li {
-    float: left;
-    margin: 0 5px 0 0;
-    width: 100px;
-    height: 40px;
-    position: relative;
-  }
-
-  .donate-now label,
-  .donate-now input,
-  .donate-now i {
-    display: block;
+  /* HIDE RADIO */
+  [type=radio] {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 
-  .donate-now input[type="radio"] {
-    opacity: 0.01;
-    z-index: 100;
-  }
-
-  .donate-now input[type="radio"]:checked+label,
-    .Checked+label {
-      background: yellow;
-    }
-  .donate-now i[type="radio"]:checked,
-  .Checked + i {
-    background: yellow;
-  }
-  .donate-now label {
-    padding: 5px;
-    border: 1px solid #CCC;
+  /* IMAGE STYLES */
+  [type=radio] + i {
     cursor: pointer;
-    z-index: 90;
+    background-color: white;
+    height: 60px;
+    width: 70px;
+    /*border: 1px solid #2196F3;*/
+  }
+[type=icon] {
+  margin-left: 30px;
+}
+  /* CHECKED STYLES */
+  [type=radio]:checked + i {
+    outline: 3px solid #2196F3;
+    background-color: white;
+  }
+  .row{
+    margin-top: -35px;
+  }
+  div[class=li] {
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 1px;
+    margin-bottom: 10px;
+    margin-left: 4px;
+    margin-top: -8px;
   }
 
-  .donate-now label:hover {
-    background: #DDD;
-  }
 </style>

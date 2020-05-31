@@ -9,8 +9,10 @@ import SearchTrip from "../views/Trip/SearchTrip";
 import MyListTrip from "../views/Trip/MyListTrip";
 import NotificationsMessage from "../views/NotificationsMessage";
 import Profile from "../views/UserProfile/Profile";
-import Car from "../views/UserProfile/Car";
+import addCar from "../views/UserProfile/addCar";
 import Preference from "../views/UserProfile/Preference";
+import ShowCar from "../views/UserProfile/ShowCar";
+import MyListOrder from "../views/Trip/MyListOrder";
 
 const routes = [
   {
@@ -103,7 +105,15 @@ const routes = [
   {
     path: '/car',
     name: 'car',
-    component: Car,
+    component: addCar,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/showCar',
+    name: 'showCar',
+    component: ShowCar,
     meta: {
       requiresAuth: true
     }
@@ -112,6 +122,14 @@ const routes = [
     path: '/preference',
     name: 'preference',
     component: Preference,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/myOrders',
+    name: 'myOrders',
+    component: MyListOrder,
     meta: {
       requiresAuth: true
     }

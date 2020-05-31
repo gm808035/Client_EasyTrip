@@ -43,7 +43,12 @@ export const store = new Vuex.Store({
           date_of_Birth: data.date_of_Birth,
           phone: data.phone,
           inf_about_yourself: data.inf_about_yourself,
-          waypoints: data.waypoints
+          waypoints: data.waypoints,
+          // user: data.user,
+          // smoke: data.smoke,
+          // talk: data.talk,
+          // animal: data.animal,
+          // music: data.animal,
         })
           .then(response => {
            resolve(response)
@@ -78,6 +83,28 @@ export const store = new Vuex.Store({
           })
       })
     },
+
+    editPref(context,data){
+      return new Promise((resolve, reject) => {
+        axios.put('/preferences/:id',{
+          userId: data.userId,
+          smoke: data.smoke,
+          talk: data.talk,
+          animal: data.animal,
+          music: data.music,
+
+        })
+          .then(response => {
+            resolve(response)
+            console.log(data)
+          })
+          .catch(error => {
+            reject(error)
+            console.log(data)
+          })
+      })
+    },
+
     addCar(context,data){
       return new Promise((resolve, reject) => {
         axios.post('/cars',{
@@ -120,6 +147,26 @@ export const store = new Vuex.Store({
             })
         })
       },
+
+    addPref(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post('/preferences', {
+          user: data.user,
+          smoke: data.smoke,
+          talk: data.talk,
+          animal: data.animal,
+          music: data.music
+        })
+          .then(response => {
+            resolve(response)
+            console.log(data)
+          })
+          .catch(error => {
+            reject(error)
+            console.log(data)
+          })
+      })
+    },
     addPassenger(context, data) {
       return new Promise((resolve, reject) =>{
         axios.post('/trips/order',{
@@ -154,22 +201,6 @@ export const store = new Vuex.Store({
       })
     },
 
-    // removeNotification(context,data){
-    //   return new Promise((resolve, reject) =>{
-    //     axios.post('/notifications',{
-    //       notification_text: data.notification_text,
-    //       user: data.user
-    //     })
-    //       .then(response => {
-    //         resolve(response)
-    //         console.log(data)
-    //       })
-    //       .catch(error => {
-    //         reject(error)
-    //         console.log(data)
-    //       })
-    //   })
-    // },
 
     addIntermediatePoint(context, data) {
       return new Promise((resolve, reject) => {
