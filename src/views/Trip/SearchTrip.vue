@@ -26,7 +26,7 @@
            <div v-if = isLoaded>
             <div v-if="results">
               <div class="titleserach" style="background-color: #E2F6F7; height: 50px">
-                <h3 style="color: #164C4F; font-family: serif; margin-top: 5px;font-size: 25px">По результатам поиска найдено {{results.length}} поездки</h3>
+                <h3 style="color: #164C4F; font-family: serif; margin-top: 5px;font-size: 25px">По результатам поиска найдено {{results.length}} поездка</h3>
               </div>
               <ul v-for="result in results" :key="result.id">
                 <li style="list-style: none">

@@ -11,32 +11,38 @@
               <img src="../../assets/img-01.png" id="icon" alt="User Icon" />
             </div>
             <!-- Login Form -->
-            <input type="email" id="email" class="fadeIn second" name="email" v-model="email" placeholder="Email">
-            <input type="password" id="password" class="fadeIn third" name="password" v-model="password" placeholder="Passworf">
-            <input type="text" id="name" class="fadeIn third" name="name" v-model="name" placeholder="Name">
-            <input type="text" id="surname" class="fadeIn third" name="surname" v-model="surname" placeholder="Surname">
+            <input type="email" id="email" class="fadeIn second" name="email" v-model="email" placeholder="Email" required="">
+            <input type="password" id="password" class="fadeIn third" name="password" v-model="password" placeholder="Пароль" required="">
+            <input type="text" id="name" class="fadeIn third" name="name" v-model="name" placeholder="Имя" required="">
+            <input type="text" id="surname" class="fadeIn third" name="surname" v-model="surname" placeholder="Фамилия" required="">
 
-                   <select type="gender" style="text-align: center" class="fadeIn third" name="gender" v-model="gender">
-                     <option value="Мужчина">Мужчина</option>
-                     <option value="Женщина">Женщина</option>
-                   </select>
+         <div class="row" style="margin-left: -40px">
+           <div class="col-6" style="margin-left: 48px; margin-right: -40px; margin-bottom: 15px; max-width: 220px; height: 60px">
+             <select type="gender" style="text-align: center" class="fadeIn third" name="gender" v-model="gender" required="">
+               <option type="hidden" value="" disabled selected hidden style="text-align: center; color: gray">Пол</option>
+               <option value="Мужчина">Мужчина</option>
+               <option value="Женщина">Женщина</option>
+             </select>
+           </div>
+           <div class="col-7" style="margin-left: -25px">
+             <div class="" style="margin-left: 50px; max-width: 650px">
+               <Datepicker id="date_of_Birth" input-class="login-input" v-model="date_of_Birth" placeholder="Дата рождения" onfocus="(this.type='date')" required="" />
+             </div>
+           </div>
+         </div>
 
-            <input type="text" id="phone" class="fadeIn third" name="phone" v-model="phone" placeholder="phone">
+
+            <input type="text" id="phone" class="fadeIn third" name="phone" v-model="phone" placeholder="Номер телефона " required="">
             <label for="date_of_Birth"></label>
 <!--            <div class="date">-->
 <!--              <Datepicker input-class="fadeIn third" type="date" id="date_of_Birth" v-model="date_of_Birth" />-->
 <!--          </div>-->
-
-            <div class="">
-              <Datepicker input-class="login-input" id="date_of_Birth" v-model="date_of_Birth" />
-            </div>
-
-            <textarea type="inf" name="inf_about_yourself" id="inf_about_yourself" class="login-input" rows="4" v-model="inf_about_yourself" placeholder="inf_about_yourself"/>
-            <input type="submit" class=" fadeIn fourth " value="Register">
+            <textarea type="inf" name="inf_about_yourself" id="inf_about_yourself" class="login-input" rows="4" v-model="inf_about_yourself" placeholder="Расскажите немного о себе" required=""/>
+            <input type="submit" class=" fadeIn fourth " value="Зарегестрироваться">
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
-              <a class="underlineHover" href="#">Forgot Password?</a>
+              <a class="underlineHover" href="#">Забыли пароль?</a>
             </div>
 
           </div>

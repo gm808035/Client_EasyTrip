@@ -16,12 +16,12 @@
                           <div class="input_field">
                             <input type="text" placeholder=" to ?">
                           </div>
-                            <div class="input_field">
-                                <Datepicker :placeholder="'Date'"/>
-                            </div>
+<!--                            <div class="input_field">-->
+<!--                                <Datepicker :placeholder="'Date'"/>-->
+<!--                            </div>-->
                             <div class="input_field">
                                 <select class="nice-select">
-                                    <option data-display="Travel type">Travel type</option>
+                                    <option data-display="Travel type">Time</option>
                                     <option value="1">Some option</option>
                                     <option value="2">Another option</option>
                                 </select>

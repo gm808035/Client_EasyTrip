@@ -80,21 +80,20 @@
 
            </div>
            <h2 style=" margin-top: 10px; margin-bottom: 10px">Информация о авто</h2>
-           <p style=" margin-top: 15px; font-size: 15px">Модель:  </p>
-           <label style="margin: -44px 0 0 150px; font-size: 16px; color: #00004d">bmw</label>
-           <p style=" margin-top: 15px; font-size: 15px">Номер:  </p>
-           <label style="margin: -44px 0 0 150px; font-size: 18px; color: #00004d">9488</label>
+           <div v-for="car in carInf" :key="car.id">-->
+             {{car.car_model}}
+             {{car.car_number}}
+           </div>
+<!--           <p style=" margin-top: 15px; font-size: 15px">Модель:  </p>-->
+<!--           <label style="margin: -44px 0 0 150px; font-size: 16px; color: #00004d">bmw</label>-->
+<!--           <p style=" margin-top: 15px; font-size: 15px">Номер:  </p>-->
+<!--           <label style="margin: -44px 0 0 150px; font-size: 18px; color: #00004d">9488</label>-->
 
            <h2 style=" margin-top: 10px; margin-bottom: 10px">Пассажиры</h2>
            <p style=" margin-top: 15px; font-size: 15px">Имя:  </p>
-           <label style="margin: -44px 0 0 150px; font-size: 18px; color: #00004d">{{trip.driver.name}} {{trip.driver.surname}}</label>
+           <label style="margin: -44px 0 0 150px; font-size: 18px; color: #00004d">Кадырова Алтынай</label>
            <p style=" margin-top: 15px; font-size: 15px">Пол:  </p>
            <label style="margin: -44px 0 0 150px; font-size: 18px; color: #00004d">{{trip.driver.gender}}</label>
-
-           <div v-for="car in carInf" :key="car.id">-->
-                          {{car.car_model}}
-                          {{car.car_number}}
-                        </div>
 
            <hr style="margin-left: 0px; margin-top: 2px" width="500" size="2" color="#b3b3b3" />
 <!--           <div v-for="pass in passInf" :key="pass.id">-->
@@ -149,7 +148,7 @@
         cities: [],
         userInf: [],
         passInf: [],
-        carInf: [],
+        carInf: []
       }
     },
     methods:{
@@ -238,7 +237,10 @@
       }
     },
     computed: {
-      google: VueGoogleMaps.gmapApi
+      google: VueGoogleMaps.gmapApi,
+      isFull() {
+        return this.trip.free_seats <= 0
+      }
     },
     mounted() {
       window.addEventListener('load', () => {
@@ -281,34 +283,20 @@
           this.errors.push(e)
         })
 
-      axios.get(`http://localhost:3000/cars/myCars/`,{
-        carUser:  this.$store.getters.currentUser.id,
+      axios.get(`http://localhost:3000/cars/myCars/userCar`,{
+        // headers: {
+        //   'Content-Type': 'application/json',
+        //   'Content-Length' :
+        // },
+        carUser: this.$store.getters.currentUser.id
       })
         .then(response => {
           this.carInf = response.data
           console.log(response.data)
-          console.log(this.carUser)
         })
         .catch(e => {
           this.errors.push(e)
         })
-      // axios.get(`http://localhost:3000/users/:id`,{
-      //   user:  this.trip.driver
-      // })
-      //   .then(response => {
-      //     this.userInf = response.data
-      //
-      //     console.log(response.data)
-      //   })
-      //   .catch(e => {
-      //     this.errors.push(e)
-      //   })
-
-    },
-    computed: {
-      isFull() {
-        return this.trip.free_seats <= 0
-      }
     },
   }
 </script>
